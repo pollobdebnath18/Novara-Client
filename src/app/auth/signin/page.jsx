@@ -1,22 +1,49 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Input, Button } from "@heroui/react";
 import { FaGoogle } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
 
 const SignIn = () => {
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const SignInWithGoogle = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-    console.log(data);
+    try {
+      setLoading(true);
 
-    // TODO: JWT login API
+      const res = await authClient.signIn.email({
+        email,
+        password,
+      });
+
+      console.log(res);
+
+      if (res?.error) {
+        alert(res.error.message || "Signin failed");
+        return;
+      }
+
+      alert("Successfully signin");
+
+      // optional
+      window.location.href = "/";
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -34,6 +61,7 @@ const SignIn = () => {
 
         {/* GOOGLE LOGIN */}
         <Button
+          onClick={SignInWithGoogle}
           className="
             group
             w-full
@@ -70,7 +98,6 @@ const SignIn = () => {
 
         {/* FORM */}
         <form onSubmit={handleSubmit} className="space-y-5">
-        
           <div className="flex flex-col gap-5">
             {/* EMAIL */}
             <div className="flex flex-col gap-1">

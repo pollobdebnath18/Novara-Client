@@ -1,9 +1,8 @@
 import Banner from "@/components/home/Banner";
-import EbookGenres from "@/components/shared/EbookGenres";
-import PopularBooks from "@/components/shared/PopularBooks";
-import PopularWriters from "@/components/shared/PopularWriters";
-import TopWriters from "@/components/shared/TopWriters";
-import Image from "next/image";
+import EbookGenres from "@/components/home/EbookGenres";
+import PopularBooks from "@/components/home/PopularBooks";
+import PopularWriters from "@/components/home/PopularWriters";
+import TopWriters from "@/components/home/TopWriters";
 
 export default function Home() {
   return (

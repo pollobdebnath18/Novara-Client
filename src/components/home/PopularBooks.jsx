@@ -35,7 +35,7 @@ const books = [
     author: "Humayun Ahmed",
     price: "$6.99",
     rating: 4.9,
-    img: "https://i.ytimg.com/vi/l1xAaPdERQU/hq720.jpg",
+    img: "https://i.ytimg.com/vi/roNKHQN-NEY/sddefault.jpg",
   },
   {
     title: "Srikanta",
