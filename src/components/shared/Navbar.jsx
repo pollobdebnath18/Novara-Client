@@ -13,6 +13,7 @@ const Navbar = () => {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
 
   const { data: session } = authClient.useSession();
 
@@ -25,12 +26,23 @@ const Navbar = () => {
     router.refresh();
   };
 
+  // only logged user
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Browse Ebooks", path: "/ebooks" },
+    { name: "Browse Ebooks", path: "/books" },
 
-    // only logged user
-    ...(user ? [{ name: "Dashboard", path: "/dashboard" }] : []),
+    // only logged user dashboard
+    ...(user?.role === "Reader"
+      ? [{ name: "Dashboard", path: "/dashboard/reader" }]
+      : []),
+
+    ...(user?.role === "Writer"
+      ? [{ name: "Dashboard", path: "/dashboard/writer" }]
+      : []),
+
+    ...(user?.role === "Admin"
+      ? [{ name: "Dashboard", path: "/dashboard/admin" }]
+      : []),
   ];
 
   const isActive = (path) => pathname === path;
@@ -95,37 +107,93 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* RIGHT SIDE */}
-
-        <div className="hidden md:flex items-center gap-3">
+        <div className="flex items-center gap-3">
           {user ? (
             <>
-              {/* AVATAR */}
+              {/* AVATAR + DROPDOWN */}
+              <div className="relative group">
+                {/* AVATAR */}
+                <div className="cursor-pointer h-10 w-10 rounded-full overflow-hidden border shadow-sm">
+                  <Image
+                    src={user?.image || Logo}
+                    alt="avatar"
+                    width={40}
+                    height={40}
+                    className="object-cover"
+                  />
+                </div>
 
-              <div
-                className="
-            h-10
-            w-10
-            rounded-full
+                {/* DROPDOWN */}
+                <div
+                  className="
+            absolute -right-20 mt-5 w-52
+            bg-gray-300 border rounded-xl shadow-lg
+            opacity-0 invisible
+            group-hover:opacity-100 group-hover:visible
+            transition-all duration-200
+            z-80
             overflow-hidden
-            border
-            shadow-sm
+            no-underline
           "
-              >
-                <Image
-                  src={user.image || Logo}
-                  alt="avatar"
-                  width={40}
-                  height={40}
-                  className="object-cover"
-                />
+                >
+                  <div className="py-2 text-sm text-gray-700">
+                    <Link
+                      href="/profile"
+                      className="block px-3 py-1 hover:bg-purple-100 hover:text-purple-600 no-underline"
+                    >
+                      Profile
+                    </Link>
+
+                    <Link
+                      href={
+                        user?.role === "Reader"
+                          ? "/dashboard/reader"
+                          : user?.role === "Writer"
+                            ? "/dashboard/writer"
+                            : "/dashboard/admin"
+                      }
+                      className="block px-3 py-1 hover:bg-purple-100 hover:text-purple-600 no-underline"
+                    >
+                      Dashboard
+                    </Link>
+
+                    <Link
+                      href="/settings"
+                      className="block px-3 py-1 hover:bg-purple-100 hover:text-purple-600 no-underline"
+                    >
+                      Settings
+                    </Link>
+                  </div>
+                </div>
               </div>
 
-              {/* SIGN OUT */}
-
+              {/* SIGN OUT BUTTON */}
               <Button
                 onPress={handleLogout}
                 className="
+          bg-gradient-to-r
+          from-purple-600
+          via-fuchsia-500
+          to-pink-500
+          text-white
+          shadow-md
+          hover:scale-[1.03]
+          transition
+        "
+              >
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              {/* NOT LOGGED IN */}
+              <Link href="/auth/signin" className="no-underline">
+                <Button variant="flat">Sign In</Button>
+              </Link>
+
+              <Link href="/auth/signup" className="no-underline">
+                <Button
+                  className="
             bg-gradient-to-r
             from-purple-600
             via-fuchsia-500
@@ -134,29 +202,7 @@ const Navbar = () => {
             shadow-md
             hover:scale-[1.03]
             transition
-            "
-              >
-                Sign Out
-              </Button>
-            </>
-          ) : (
-            <>
-              <Link href="/auth/signin" className="no-underline">
-                <Button variant="flat">Sign In</Button>
-              </Link>
-
-              <Link href="/auth/signup" className="no-underline">
-                <Button
-                  className="
-              bg-gradient-to-r
-              from-purple-600
-              via-fuchsia-500
-              to-pink-500
-              text-white
-              shadow-md
-              hover:scale-[1.03]
-              transition
-              "
+          "
                 >
                   Get Started
                 </Button>
