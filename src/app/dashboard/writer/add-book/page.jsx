@@ -18,8 +18,9 @@ import { FaUpload, FaLink } from "react-icons/fa";
 import { FaImage } from "react-icons/fa";
 
 import { FaBook, FaFileAlt, FaDollarSign, FaTag } from "react-icons/fa";
-import {getUserSession } from "@/lib/core/session";
+import { getUserSession } from "@/lib/core/session";
 import { addBook } from "@/lib/actions/writers";
+import { useRouter } from "next/navigation";
 
 const WriterAddBookPage = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -27,6 +28,8 @@ const WriterAddBookPage = () => {
   const [mode, setMode] = useState("upload");
   const [loading, setLoading] = useState(false);
   const [genre, setGenre] = useState("");
+
+  const router = useRouter();
 
   const genres = [
     "Technology",
@@ -71,13 +74,14 @@ const WriterAddBookPage = () => {
       email,
     };
 
-    console.log("FINAL PAYLOAD:", payload);
-    const data = await addBook(payload , "POST");
+    // console.log("FINAL PAYLOAD:", payload);
+    const data = await addBook(payload, "POST");
+    if (data.success) {
+      router.push("/dashboard/writer/manage-books");
+    }
 
     setLoading(false);
 
-    // 👉 send to backend here
-    // await fetch("/api/books", { method: "POST", body: JSON.stringify(payload) })
   };
 
   return (

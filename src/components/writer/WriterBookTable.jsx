@@ -5,12 +5,15 @@ import { Table, Button } from "@heroui/react";
 import { Pencil, TrashBin } from "@gravity-ui/icons";
 import EditBookModal from "./EditBookModal";
 import { DeletedModal } from "./DeleteModal";
-import { deleteBookById } from "@/lib/actions/writers";
+import { deleteBookById, updateBookStatus } from "@/lib/actions/writers";
+import { useRouter } from "next/navigation";
 
 const WriterBookTable = ({ books = [] }) => {
   const [bookList, setBookList] = useState(books);
   const [deleteBook, setDeleteBook] = useState(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const router = useRouter();
 
   const [editBook, setEditBook] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -20,20 +23,23 @@ const WriterBookTable = ({ books = [] }) => {
     setIsOpen(true);
   };
 
- const openDeleteModal = (book) => {
-   setDeleteBook(book);
-   setIsDeleteOpen(true);
- };
+  const openDeleteModal = (book) => {
+    setDeleteBook(book);
+    setIsDeleteOpen(true);
+  };
 
- const confirmDelete = async (id,book) => {
-   const res = await deleteBookById(id,book,'DELETE');
+  const confirmDelete = async (id, book) => {
+    const res = await deleteBookById(id, book, "DELETE");
 
-   setBookList((prev) => prev.filter((b) => b._id !== id));
+    setBookList((prev) => prev.filter((b) => b._id !== id));
 
-   setIsDeleteOpen(false);
- };
+    setIsDeleteOpen(false);
+  };
 
-  const handleStatus = (bookId) => {
+  const handleStatus = async (book, bookId) => {
+    const newStatus = book.status === "published" ? "unpublish" : "published";
+
+    const res = await updateBookStatus(bookId, { status: newStatus }, "PATCH");
     setBookList((prev) =>
       prev.map((b) =>
         b._id === bookId
@@ -44,11 +50,17 @@ const WriterBookTable = ({ books = [] }) => {
           : b,
       ),
     );
+    router.refresh();
   };
 
   return (
     <div className="w-full">
-      <EditBookModal isOpen={isOpen} setIsOpen={setIsOpen} book={editBook} />
+      <EditBookModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        book={editBook}
+        setBookList={setBookList}
+      />
       <DeletedModal
         isOpen={isDeleteOpen}
         setIsOpen={setIsDeleteOpen}
@@ -133,7 +145,7 @@ const WriterBookTable = ({ books = [] }) => {
                         size="sm"
                         variant="secondary"
                         className="w-[90px]"
-                        onPress={() => handleStatus(book._id)}
+                        onPress={() => handleStatus(book, book._id)}
                       >
                         {book.status === "published" ? "Unpublish" : "Publish"}
                       </Button>

@@ -5,9 +5,11 @@ import Link from "next/link";
 import { Input, Button } from "@heroui/react";
 import { FaGoogle } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const SignInWithGoogle = async () => {
     const data = await authClient.signIn.social({
       provider: "google",
@@ -27,17 +29,23 @@ const SignIn = () => {
         password,
       });
 
-      console.log(res);
+      // console.log(res);
 
       if (res?.error) {
         alert(res.error.message || "Signin failed");
         return;
       }
 
-      alert("Successfully signin");
+      if (role === "Reader") {
+        router.push("/");
+      }
+      if (role === "Writer") {
+        router.push("/dashboard/writer");
+      }
+      if (role === "Admin") {
+        router.push("/dashboard/admin");
+      }
 
-      // optional
-      window.location.href = "/";
     } catch (err) {
       console.log(err);
       alert("Something went wrong");

@@ -8,58 +8,66 @@ import Lottie from "lottie-react";
 import SignUpAnimations from "../../../../public/animations/signup_animations.json";
 import { FaGoogle } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const SignUpPage = () => {
   const [role, setRole] = useState("Reader");
   const [loading, setLoading] = useState(false);
 
-  const SignInWithGoogle = async()=>{
-     const data = await authClient.signIn.social({
-       provider: "google",
-     });
-  }
+  const router = useRouter();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const name = e.target.name.value;
-  const email = e.target.email.value;
-  const password = e.target.password.value;
-  const confirmPassword = e.target.confirmPassword.value;
-
-  if (password !== confirmPassword) {
-    alert("Passwords do not match");
-    return;
-  }
-
-  try {
-    setLoading(true);
-
-    const res = await authClient.signUp.email({
-      name,
-      email,
-      password,
-      role: role, // Reader / Writer
+  const SignInWithGoogle = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
     });
+  };
 
-    console.log(res);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (res?.error) {
-      alert(res.error.message || "Signup failed");
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const confirmPassword = e.target.confirmPassword.value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
       return;
     }
 
-    alert("Successfully signup");
+    try {
+      setLoading(true);
 
-    // optional
-    window.location.href = "/";
-  } catch (err) {
-    console.log(err);
-    alert("Something went wrong");
-  } finally {
-    setLoading(false);
-  }
-};
+      const res = await authClient.signUp.email({
+        name,
+        email,
+        password,
+        role: role, // Reader / Writer
+      });
+
+      // console.log(res);
+
+      if (res?.error) {
+        alert(res.error.message || "Signup failed");
+        return;
+      }
+
+      if (role === "Reader") {
+        router.push("/");
+      }
+      if (role === "Writer") {
+        router.push("/dashboard/writer");
+      }
+      if (role === "Admin") {
+        router.push("/dashboard/admin");
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-pink-50 px-6">
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -80,7 +88,10 @@ const handleSubmit = async (e) => {
           </div>
 
           {/* GOOGLE BUTTON (UI ONLY, NO LOGIC YET) */}
-          <Button className="w-full h-12 bg-white border border-gray-200 text-gray-700 rounded-xl flex items-center justify-center gap-3" onClick={SignInWithGoogle}>
+          <Button
+            className="w-full h-12 bg-white border border-gray-200 text-gray-700 rounded-xl flex items-center justify-center gap-3"
+            onClick={SignInWithGoogle}
+          >
             <FaGoogle size={20} />
             Continue with Google
           </Button>

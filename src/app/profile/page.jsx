@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { auth } from "@/lib/auth"; // server-side auth
 import { headers } from "next/headers";
+import User from "@/image/user.png";
 
 const ProfilePage = async () => {
   const session = await auth.api.getSession({
@@ -28,7 +29,7 @@ const ProfilePage = async () => {
           {/* IMAGE */}
           <div className="h-20 w-20 rounded-full overflow-hidden border shadow-md">
             <Image
-              src={user.image || "/default-avatar.png"}
+              src={user.image || User}
               alt="profile"
               width={80}
               height={80}

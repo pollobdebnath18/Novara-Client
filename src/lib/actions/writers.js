@@ -12,3 +12,7 @@ export const updateModal = async(bookId,payload,method)=>{
 export const deleteBookById = async(bookId,data,method)=>{
     return serverMutation(`/api/writers/${bookId}`,data,method);
 }
+
+export const updateBookStatus = async(bookId,data,method)=>{    
+    return serverMutation(`/api/writers/${bookId}`,data,method);
+}

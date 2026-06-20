@@ -1,6 +1,7 @@
 import WriterBookTable from "@/components/writer/WriterBookTable";
 import { getBooksById } from "@/lib/api/writers";
 import { getUserSession } from "@/lib/core/session";
+import Link from "next/link";
 
 const WritersManageBooks = async () => {
   const user = await getUserSession();
@@ -18,54 +19,71 @@ const WritersManageBooks = async () => {
 
   return (
     <div className="p-6 space-y-8">
-      {/* HEADER */}
+      <div>
+        {totalBooks === 0 && (
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <div className="text-6xl">📚</div>
 
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold">Manage Ebooks</h1>
+            <h2 className="text-2xl font-bold mt-4">No Ebooks Yet</h2>
 
-          <p className="text-gray-500 mt-2 max-w-xl">
-            View and manage all your ebooks. Edit book details, update
-            publishing status, and control your ebook collection from here.
-          </p>
-        </div>
-      </div>
+            <p className="text-gray-500 mt-2 max-w-md">
+              You haven’t created any ebooks yet. Start building your collection
+              by publishing your first ebook.
+            </p>
 
-      {/* STATS */}
+            <Link href='/dashboard/writer/add-book' className="mt-6 px-6 py-2 bg-black text-white rounded-xl">
+              Create Your First Ebook
+            </Link>
+          </div>
+        )}
 
-      <div className="grid md:grid-cols-3 gap-5">
-        <div className="rounded-xl border p-5">
-          <p className="text-sm text-gray-500">Total Ebooks</p>
+        {totalBooks > 0 && (
+          <>
+            {/* HEADER */}
 
-          <h2 className="text-3xl font-bold mt-2">{totalBooks}</h2>
-        </div>
+            <div className="flex justify-between items-center">
+              <div>
+                <h1 className="text-3xl font-bold">Manage Ebooks</h1>
 
-        <div className="rounded-xl border p-5">
-          <p className="text-sm text-gray-500">Published</p>
+                <p className="text-gray-500 mt-2 max-w-xl">
+                  View and manage all your ebooks. Edit book details, update
+                  publishing status, and control your ebook collection from
+                  here.
+                </p>
+              </div>
+            </div>
 
-          <h2 className="text-3xl font-bold mt-2">{publishedBooks}</h2>
-        </div>
+            {/* PART 1: STATS */}
+            <div className="grid md:grid-cols-3 gap-5">
+              <div className="rounded-xl border p-5">
+                <p className="text-sm text-gray-500">Total Ebooks</p>
+                <h2 className="text-3xl font-bold mt-2">{totalBooks}</h2>
+              </div>
 
-        <div className="rounded-xl border p-5">
-          <p className="text-sm text-gray-500">Unpublished</p>
+              <div className="rounded-xl border p-5">
+                <p className="text-sm text-gray-500">Published</p>
+                <h2 className="text-3xl font-bold mt-2">{publishedBooks}</h2>
+              </div>
 
-          <h2 className="text-3xl font-bold mt-2">{unpublishedBooks}</h2>
-        </div>
-      </div>
+              <div className="rounded-xl border p-5">
+                <p className="text-sm text-gray-500">Unpublished</p>
+                <h2 className="text-3xl font-bold mt-2">{unpublishedBooks}</h2>
+              </div>
+            </div>
 
-      {/* TABLE SECTION */}
+            {/* PART 2: TABLE */}
+            <div className="rounded-2xl border p-5 mt-6">
+              <div className="mb-5">
+                <h2 className="text-xl font-semibold">Your Ebook List</h2>
+                <p className="text-sm text-gray-500">
+                  Manage titles, prices, visibility and publishing actions.
+                </p>
+              </div>
 
-      <div className="rounded-2xl border p-5">
-        <div className="mb-5">
-          <h2 className="text-xl font-semibold">Your Ebook List</h2>
-
-          <p className="text-sm text-gray-500">
-            Manage titles, prices, visibility and publishing actions.
-          </p>
-        </div>
-
-        <WriterBookTable books={books} />
-        
+              <WriterBookTable books={books} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

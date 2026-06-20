@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Input, Label, Button } from "@heroui/react";
 import { updateModal } from "@/lib/actions/writers";
+import { useRouter } from "next/navigation";
 
 const genres = [
   "Technology",
@@ -14,8 +15,9 @@ const genres = [
   "Romantic",
 ];
 
-const EditBookModal = ({ isOpen, setIsOpen, book }) => {
-  
+const EditBookModal = ({ isOpen, setIsOpen, book, setBookList }) => {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -59,11 +61,15 @@ const EditBookModal = ({ isOpen, setIsOpen, book }) => {
       coverImage: imageUrl,
     };
 
-    console.log("BOOK ID:", bookId);
-    console.log("UPDATE PAYLOAD:", payload);
+    // console.log("BOOK ID:", bookId);
+    // console.log("UPDATE PAYLOAD:", payload);
 
     // example API call
-    const res = await updateModal(bookId, payload , 'PATCH');
+    const res = await updateModal(bookId, payload, "PATCH");
+
+    setBookList((prev) =>
+      prev.map((b) => (b._id === bookId ? { ...b, ...payload } : b)),
+    );
 
     setLoading(false);
     setIsOpen(false);

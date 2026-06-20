@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Logo from "../../image/book_logo.png";
+import User from "@/image/user.png";
 import { authClient } from "@/lib/auth-client";
 
 const Navbar = () => {
@@ -115,7 +116,7 @@ const Navbar = () => {
                 {/* AVATAR */}
                 <div className="cursor-pointer h-10 w-10 rounded-full overflow-hidden border shadow-sm">
                   <Image
-                    src={user?.image || Logo}
+                    src={user?.image || User}
                     alt="avatar"
                     width={40}
                     height={40}
