@@ -13,6 +13,7 @@
     "@gravity-ui/icons": "^2.18.0",
     "@heroui/react": "^3.2.1",
     "@heroui/styles": "^3.2.1",
+    "@nextui-org/react": "^2.6.11",
     "better-auth": "^1.6.19",
     "lottie-react": "^2.4.1",
     "lucide-react": "^1.21.0",
