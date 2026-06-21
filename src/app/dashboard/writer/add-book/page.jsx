@@ -72,6 +72,9 @@ const WriterAddBookPage = () => {
       role,
       id,
       email,
+      writerName: user?.name,
+      isSold: false,
+      createdAt: new Date(),
     };
 
     // console.log("FINAL PAYLOAD:", payload);
@@ -81,7 +84,6 @@ const WriterAddBookPage = () => {
     }
 
     setLoading(false);
-
   };
 
   return (

@@ -36,6 +36,8 @@ const SignIn = () => {
         return;
       }
 
+      const role = res?.data?.user?.role; 
+
       if (role === "Reader") {
         router.push("/");
       }
@@ -45,7 +47,6 @@ const SignIn = () => {
       if (role === "Admin") {
         router.push("/dashboard/admin");
       }
-
     } catch (err) {
       console.log(err);
       alert("Something went wrong");

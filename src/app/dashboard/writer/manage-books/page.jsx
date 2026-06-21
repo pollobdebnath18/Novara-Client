@@ -8,6 +8,7 @@ const WritersManageBooks = async () => {
   const id = user?.id;
 
   const books = await getBooksById(id);
+  console.log(books);
 
   const totalBooks = books?.length || 0;
 
