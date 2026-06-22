@@ -1,4 +1,5 @@
-// import SalesChart from "@/components/admin/SalesChart";
+
+import AdminOverviewCharts from '@/components/admin/AdminOverviewCharts';
 
 export default function AdminHomePage() {
   return (
@@ -7,9 +8,8 @@ export default function AdminHomePage() {
 
       <div className="border rounded-2xl p-5 bg-white shadow-sm">
         <h2 className="font-semibold text-lg mb-3">Monthly Sales</h2>
-
-        {/* <SalesChart /> */}
       </div>
+      <AdminOverviewCharts />
     </div>
   );
 }
