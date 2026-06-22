@@ -1,70 +1,278 @@
 "use client";
 
-import { Chip, Button } from "@heroui/react";
-import { useState } from "react";
+import { Button, Chip } from "@heroui/react";
+import { useEffect, useState } from "react";
+import {
+  Bookmark,
+  BookmarkCheck,
+  CalendarDays,
+  User,
+  ShoppingCart,
+} from "lucide-react";
+import Link from "next/link";
+import {
+  addBookMark,
+  checkBookMark,
+  removeBookMark,
+} from "@/lib/actions/reader";
 
-export default function BookDetailsCard({ book }) {
+export default function BookDetailsCard({ book, currentUser }) {
   const [loading, setLoading] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [purchased, setPurchased] = useState(book?.isSold || false);
 
-  const isSold = book.status === "sold";
+  useEffect(() => {
+    const loadBookmark = async () => {
+      if (!currentUser?.email) return;
+
+      const res = await checkBookMark(currentUser.email, book._id);
+
+      setBookmarked(res.isBookmarked);
+    };
+
+    loadBookmark();
+  }, [book._id, currentUser?.email]);
+
+  if (!book) {
+    return (
+      <div className="p-10 text-center">
+        <h2 className="text-2xl font-bold">Ebook not found</h2>
+      </div>
+    );
+  }
+
+  const isOwner = currentUser?.email === book.email;
+  // console.log(currentUser);
 
   const handleBuy = async () => {
     try {
       setLoading(true);
 
-      // TODO: call your Stripe API here
-      console.log("Buying book:", book._id);
+      // Stripe checkout API here
 
-      // example:
-      // await createCheckoutSession(book._id);
-    } catch (err) {
-      console.log(err);
+      console.log("Checkout:", book._id);
+    } catch (error) {
+      console.log(error);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleBookmark = async () => {
+    try {
+      const newStatus = !bookmarked;
+
+      const data = {
+        isBookmarked: newStatus,
+        book,
+        bookmarkUserEmail: currentUser?.email,
+        bookmarkUserId: currentUser?.id,
+      };
+
+      if (newStatus) {
+        const res = await addBookMark(data, "POST");
+
+        if (res.insertedId) {
+          setBookmarked(true);
+        }
+      } else {
+        const res = await removeBookMark(data, "DELETE");
+
+        if (res.deletedCount) {
+          setBookmarked(false);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getGenreColor = () => {
+    switch (book.genre) {
+      case "Programming":
+        return "bg-blue-100 text-blue-700";
+
+      case "Technology":
+        return "bg-purple-100 text-purple-700";
+
+      case "Education":
+        return "bg-green-100 text-green-700";
+
+      case "Fiction":
+        return "bg-pink-100 text-pink-700";
+
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
+  };
+
   return (
-    <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-      {/* IMAGE */}
-      <div className="rounded-xl overflow-hidden border shadow-sm">
-        <img src={book.coverImage} className="w-full h-96 object-cover" />
+    <div
+      className="
+      max-w-6xl mx-auto
+      bg-white
+      rounded-3xl
+      border
+      shadow-sm
+      p-6
+      md:p-10
+      grid
+      md:grid-cols-2
+      gap-10
+    "
+    >
+      {/* COVER IMAGE */}
+
+      <div
+        className="
+        relative
+        rounded-2xl
+        overflow-hidden
+        shadow-md
+      "
+      >
+        <img
+          src={book.coverImage}
+          alt={book.title}
+          className="
+            w-full
+            h-[450px]
+            
+          "
+        />
+
+        {/* bookmark */}
+
+        <button
+          onClick={handleBookmark}
+          className="
+            absolute
+            top-4
+            right-4
+            bg-white
+            p-3
+            rounded-full
+            shadow
+          "
+        >
+          {bookmarked ? (
+            <BookmarkCheck size={22} className="text-purple-600" />
+          ) : (
+            <Bookmark size={22} />
+          )}
+        </button>
       </div>
 
-      {/* INFO */}
-      <div className="space-y-4">
-        <h1 className="text-3xl font-bold">{book.title}</h1>
+      {/* DETAILS */}
 
-        <p className="text-sm text-gray-600">{book.writerName || book.email}</p>
+      <div className="space-y-5">
+        <h1
+          className="
+          text-4xl
+          font-bold
+          leading-tight
+        "
+        >
+          {book.title}
+        </h1>
 
-        {/* CHIPS */}
-        <div className="flex gap-2 flex-wrap">
-          <Chip size="sm" variant="flat">
-            {book.genre}
+        {/* WRITER */}
+
+        <Link
+          href={`/writers/${book.id}`}
+          className="
+            flex
+            items-center
+            gap-2
+            text-gray-600
+            hover:text-black
+            transition
+          "
+        >
+          <User size={18} />
+
+          <span>{book?.writerName || "Unknown Writer"}</span>
+        </Link>
+
+        {/* BADGES */}
+
+        <div className="flex flex-wrap gap-3">
+          <Chip className={getGenreColor()}>{book.genre}</Chip>
+
+          <Chip color={purchased ? "danger" : "success"}>
+            {purchased ? "Sold" : "Available"}
           </Chip>
 
-          <Chip size="sm" color={isSold ? "danger" : "success"}>
-            {isSold ? "Sold" : "Available"}
-          </Chip>
+          <Chip variant="flat">৳ {book.price}</Chip>
+        </div>
 
-          <Chip size="sm" variant="flat">
-            ৳ {book.price}
-          </Chip>
+        {/* DATE */}
+
+        <div
+          className="
+          flex
+          items-center
+          gap-2
+          text-sm
+          text-gray-500
+        "
+        >
+          <CalendarDays size={17} />
+
+          {book.createdAt
+            ? new Date(book.createdAt).toLocaleDateString()
+            : "Date unavailable"}
         </div>
 
         {/* DESCRIPTION */}
-        <p className="text-gray-600 leading-relaxed">{book.description}</p>
 
-        {/* BUTTON */}
+        <div>
+          <h3
+            className="
+            font-semibold
+            text-lg
+            mb-2
+          "
+          >
+            About this ebook
+          </h3>
+
+          <p
+            className="
+            text-gray-600
+            leading-relaxed
+          "
+          >
+            {book.description}
+          </p>
+        </div>
+
+        {/* PURCHASE */}
+
         <Button
           onPress={handleBuy}
           isLoading={loading}
-          isDisabled={isSold}
-          className={`w-full ${
-            isSold ? "bg-gray-200 text-gray-500" : "bg-black text-white"
-          }`}
+          isDisabled={purchased || isOwner}
+          startContent={!loading && <ShoppingCart size={18} />}
+          className={`
+            w-full
+            h-12
+            text-md
+            font-semibold
+
+            ${
+              purchased || isOwner
+                ? "bg-gray-200 text-gray-500"
+                : "bg-black text-white hover:bg-gray-800"
+            }
+
+          `}
         >
-          {isSold ? "Already Purchased" : "Buy Now"}
+          {purchased
+            ? "Already Purchased"
+            : isOwner
+              ? "You cannot buy your own ebook"
+              : "Buy Now"}
         </Button>
       </div>
     </div>
