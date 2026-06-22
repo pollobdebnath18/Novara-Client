@@ -1,11 +1,15 @@
-import React from 'react';
+// import SalesChart from "@/components/admin/SalesChart";
 
-const AdminHomePage = () => {
-    return (
-        <div>
-            admin home page
-        </div>
-    );
-};
+export default function AdminHomePage() {
+  return (
+    <div className="p-6 space-y-6">
+      <h1 className="text-3xl font-bold">Admin Dashboard</h1>
 
-export default AdminHomePage;
+      <div className="border rounded-2xl p-5 bg-white shadow-sm">
+        <h2 className="font-semibold text-lg mb-3">Monthly Sales</h2>
+
+        {/* <SalesChart /> */}
+      </div>
+    </div>
+  );
+}
