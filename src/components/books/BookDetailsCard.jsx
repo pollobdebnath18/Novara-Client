@@ -23,15 +23,22 @@ export default function BookDetailsCard({ book, currentUser }) {
 
   useEffect(() => {
     const loadBookmark = async () => {
-      if (!currentUser?.email) return;
+      if (!currentUser?.id || !book?._id) return;
 
-      const res = await checkBookMark(currentUser.email, book._id);
-
-      setBookmarked(res.isBookmarked);
+      try {
+        const res = await checkBookMark(currentUser.id, book._id);
+        console.log(res, "res");
+        setBookmarked(Boolean(res?.isBookmarked));
+      } catch (err) {
+        console.log(err);
+        setBookmarked(false);
+      }
     };
 
     loadBookmark();
-  }, [book._id, currentUser?.email]);
+  }, [currentUser?.id, book?._id]);
+
+  // console.log(bookmarked,'bookmarked');
 
   if (!book) {
     return (
@@ -50,7 +57,7 @@ export default function BookDetailsCard({ book, currentUser }) {
 
       // Stripe checkout API here
 
-      console.log("Checkout:", book._id);
+      // console.log("Checkout:", book._id);
     } catch (error) {
       console.log(error);
     } finally {
@@ -60,16 +67,14 @@ export default function BookDetailsCard({ book, currentUser }) {
 
   const handleBookmark = async () => {
     try {
-      const newStatus = !bookmarked;
-
       const data = {
-        isBookmarked: newStatus,
-        book,
-        bookmarkUserEmail: currentUser?.email,
-        bookmarkUserId: currentUser?.id,
+        userId: currentUser.id,
+        bookId: book._id,
+        writerId: book.id,
       };
+      // console.log(data);
 
-      if (newStatus) {
+      if (!bookmarked) {
         const res = await addBookMark(data, "POST");
 
         if (res.insertedId) {
@@ -146,19 +151,21 @@ export default function BookDetailsCard({ book, currentUser }) {
         <button
           onClick={handleBookmark}
           className="
-            absolute
-            top-4
-            right-4
-            bg-white
-            p-3
-            rounded-full
-            shadow
-          "
+    absolute
+    top-4
+    right-4
+    bg-white
+    p-3
+    rounded-full
+    shadow
+    hover:scale-105
+    transition
+  "
         >
           {bookmarked ? (
             <BookmarkCheck size={22} className="text-purple-600" />
           ) : (
-            <Bookmark size={22} />
+            <Bookmark size={22} className="text-gray-600" />
           )}
         </button>
       </div>

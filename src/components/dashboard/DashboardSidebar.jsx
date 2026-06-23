@@ -3,12 +3,16 @@ import { headers } from "next/headers";
 import Link from "next/link";
 
 import DashboardNav from "./DashboardNav";
+import Image from "next/image";
+import User from "@/image/user.png";
+
 
 export async function DashboardSidebar() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
+  const user = session?.user;
   const role = session?.user?.role;
 
   //  ICONS as STRING (IMPORTANT FIX)
@@ -30,7 +34,7 @@ export async function DashboardSidebar() {
       label: "Sales History",
       href: "/dashboard/writer/sales",
     },
-    { icon: "Person", label: "Profile", href: "/profile" },
+    { icon: "Person", label: "Profile", href: "/dashboard/writer/my-profile" },
   ];
 
   const NavReaders = [
@@ -50,7 +54,7 @@ export async function DashboardSidebar() {
       label: "Bookmarks",
       href: "/dashboard/reader/bookmark",
     },
-    { icon: "Person", label: "My Profile", href: "/profile" },
+    { icon: "Person", label: "My Profile", href: "/dashboard/reader/my-profile" },
   ];
 
   const NavAdmin = [
@@ -65,8 +69,16 @@ export async function DashboardSidebar() {
       label: "Manage All Ebooks",
       href: "/dashboard/admin/ebooks",
     },
-    { icon: "Gear", label: "View All Transactions", href: "/dashboard/admin/transactions" },
-    { icon: "Person", label: "My Profile", href: "/profile" },
+    {
+      icon: "Gear",
+      label: "View All Transactions",
+      href: "/dashboard/admin/transactions",
+    },
+    {
+      icon: "Person",
+      label: "My Profile",
+      href: "/dashboard/admin/my-profile",
+    },
   ];
 
   const menus = {
@@ -80,9 +92,20 @@ export async function DashboardSidebar() {
   return (
     <aside className="hidden lg:flex lg:w-72 lg:flex-col lg:border-r lg:bg-background">
       {/* Header */}
-      <div className="p-5 border-b">
-        <h2 className="text-lg font-bold">Dashboard</h2>
-        <p className="text-xs text-gray-500">{role}</p>
+      <div className="flex items-center gap-2 ml-3">
+        <div className="cursor-pointer h-10 w-10 rounded-full overflow-hidden border shadow-sm">
+          <Image
+            src={user?.image || User}
+            alt="avatar"
+            width={40}
+            height={40}
+            className="object-cover"
+          />
+        </div>
+        <div className="p-5 border-b">
+          <h2 className="text-lg font-bold">Dashboard</h2>
+          <p className="text-xs text-gray-700">{role}</p>
+        </div>
       </div>
 
       {/* Navigation */}

@@ -8,6 +8,6 @@ export const removeBookMark = async (data, method) => {
   return serverMutation(`/api/bookmark`, data, method);
 };
 
-export const checkBookMark = async (email, bookId) => {
-  return serverFetch(`/api/bookmark/check?email=${email}&bookId=${bookId}`);
+export const checkBookMark = async (userId, bookId) => {
+  return serverFetch(`/api/bookmark-check?userId=${userId}&bookId=${bookId}`);
 };
