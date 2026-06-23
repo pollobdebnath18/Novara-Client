@@ -15,6 +15,7 @@ import {
   checkBookMark,
   removeBookMark,
 } from "@/lib/actions/reader";
+import toast from "react-hot-toast";
 
 export default function BookDetailsCard({ book, currentUser }) {
   const [loading, setLoading] = useState(false);
@@ -67,6 +68,10 @@ export default function BookDetailsCard({ book, currentUser }) {
 
   const handleBookmark = async () => {
     try {
+      if (!currentUser?.id) {
+        return toast.error("Please login to bookmark this book");
+        
+      }
       const data = {
         userId: currentUser.id,
         bookId: book._id,
