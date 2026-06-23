@@ -173,7 +173,7 @@ const WriterAddBookPage = () => {
           {/* MODE SWITCH */}
           <div className="flex gap-3 mt-2 mb-3">
             <button
-              type="button"
+              type="file"
               onClick={() => setMode("upload")}
               className={`px-3 py-1 rounded-lg text-sm ${
                 mode === "upload" ? "bg-black text-white" : "bg-gray-200"

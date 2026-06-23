@@ -261,12 +261,15 @@ export default function BookDetailsCard({ book, currentUser }) {
 
         {/* PURCHASE */}
 
-        <Button
-          onPress={handleBuy}
-          isLoading={loading}
-          isDisabled={purchased || isOwner}
-          startContent={!loading && <ShoppingCart size={18} />}
-          className={`
+        <form action="/api/subscriptions" method="POST">
+          <input type="hidden" name="bookId" value={book._id} />
+          <Button
+            // onPress={handleBuy}
+            type="submit"
+            isLoading={loading}
+            isDisabled={purchased || isOwner}
+            startContent={!loading && <ShoppingCart size={18} />}
+            className={`
             w-full
             h-12
             text-md
@@ -279,13 +282,14 @@ export default function BookDetailsCard({ book, currentUser }) {
             }
 
           `}
-        >
-          {purchased
-            ? "Already Purchased"
-            : isOwner
-              ? "You cannot buy your own ebook"
-              : "Buy Now"}
-        </Button>
+          >
+            {purchased
+              ? "Already Purchased"
+              : isOwner
+                ? "You cannot buy your own ebook"
+                : "Buy Now"}
+          </Button>
+        </form>
       </div>
     </div>
   );
