@@ -17,10 +17,10 @@ import {
 } from "@/lib/actions/reader";
 import toast from "react-hot-toast";
 
-export default function BookDetailsCard({ book, currentUser }) {
+export default function BookDetailsCard({ book, currentUser, isPurchased }) {
   const [loading, setLoading] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
-  const [purchased, setPurchased] = useState(book?.isSold || false);
+  const purchased = isPurchased;
 
   useEffect(() => {
     const loadBookmark = async () => {
@@ -70,7 +70,6 @@ export default function BookDetailsCard({ book, currentUser }) {
     try {
       if (!currentUser?.id) {
         return toast.error("Please login to bookmark this book");
-        
       }
       const data = {
         userId: currentUser.id,
@@ -135,20 +134,28 @@ export default function BookDetailsCard({ book, currentUser }) {
 
       <div
         className="
-        relative
-        rounded-2xl
-        overflow-hidden
-        shadow-md
-      "
+    group
+    relative
+    rounded-3xl
+    overflow-hidden
+    shadow-lg
+    border
+    bg-gray-100
+  "
       >
         <img
           src={book.coverImage}
           alt={book.title}
           className="
-            w-full
-            h-[450px]
-            
-          "
+      w-full
+      h-[450px]
+      object-cover
+
+      transition-transform
+      duration-500
+
+      group-hover:scale-105
+    "
         />
 
         {/* bookmark */}
@@ -156,21 +163,37 @@ export default function BookDetailsCard({ book, currentUser }) {
         <button
           onClick={handleBookmark}
           className="
-    absolute
-    top-4
-    right-4
-    bg-white
-    p-3
-    rounded-full
-    shadow
-    hover:scale-105
-    transition
-  "
+      absolute
+      top-5
+      right-5
+
+      w-12
+      h-12
+
+      flex
+      items-center
+      justify-center
+
+      bg-white/90
+      backdrop-blur
+
+      rounded-full
+
+      shadow-lg
+
+      hover:scale-110
+      hover:bg-white
+
+      transition-all
+      duration-300
+
+      active:scale-95
+    "
         >
           {bookmarked ? (
-            <BookmarkCheck size={22} className="text-purple-600" />
+            <BookmarkCheck size={24} className="text-purple-600" />
           ) : (
-            <Bookmark size={22} className="text-gray-600" />
+            <Bookmark size={24} className="text-gray-600" />
           )}
         </button>
       </div>
@@ -191,69 +214,207 @@ export default function BookDetailsCard({ book, currentUser }) {
         {/* WRITER */}
 
         <Link
-          href={`/writers/${book.id}`}
+          href={`/dashboard/writer/my-profile/${book.id}`}
           className="
-            flex
-            items-center
-            gap-2
-            text-gray-600
-            hover:text-black
-            transition
-          "
+    group
+    flex
+    items-center
+    gap-2
+    w-fit
+    text-blue-600
+    font-medium
+    hover:text-blue-800
+    transition-all
+    duration-300
+  "
         >
-          <User size={18} />
+          <div
+            className="
+      w-8
+      h-8
+      rounded-full
+      bg-blue-100
+      flex
+      items-center
+      justify-center
+      group-hover:bg-blue-200
+      transition
+      duration-300
+    "
+          >
+            <User
+              size={16}
+              className="
+        text-blue-600
+        group-hover:scale-110
+        transition-transform
+      "
+            />
+          </div>
 
-          <span>{book?.writerName || "Unknown Writer"}</span>
+          <span
+            className="
+      border-b
+      border-transparent
+      group-hover:border-blue-600
+      transition
+      duration-300
+    "
+          >
+            {book?.writerName || "Unknown Writer"}
+          </span>
         </Link>
 
         {/* BADGES */}
 
         <div className="flex flex-wrap gap-3">
-          <Chip className={getGenreColor()}>{book.genre}</Chip>
+          {/* Genre */}
+          <div
+            className="
+    px-4
+    py-1.5
+    rounded-full
+    text-sm
+    font-semibold
+    shadow-sm
+    border
+    transition
+    hover:scale-105
+    duration-300
+    "
+          >
+            <Chip className={getGenreColor()}>{book.genre}</Chip>
+          </div>
 
-          <Chip color={purchased ? "danger" : "success"}>
+          {/* Purchase Status */}
+          <Chip
+            color={purchased ? "danger" : "success"}
+            className="
+      px-3
+      py-1
+      font-semibold
+      shadow-sm
+      transition
+      hover:scale-105
+      duration-300
+    "
+          >
             {purchased ? "Sold" : "Available"}
           </Chip>
 
-          <Chip variant="flat">৳ {book.price}</Chip>
+          {/* Price */}
+          <div
+            className="
+    flex
+    items-center
+    gap-1
+    px-4
+    py-1.5
+    rounded-full
+    bg-gray-100
+    text-gray-800
+    font-bold
+    shadow-sm
+    border
+    hover:bg-gray-200
+    transition
+    duration-300
+    "
+          >
+            <span className="text-green-600">৳</span>
+
+            {book.price}
+          </div>
         </div>
 
         {/* DATE */}
 
         <div
           className="
-          flex
-          items-center
-          gap-2
-          text-sm
-          text-gray-500
-        "
+  flex
+  items-center
+  gap-3
+  mt-2
+  px-4
+  py-3
+  rounded-xl
+  bg-gray-50
+  border
+  text-sm
+  text-gray-600
+  shadow-sm
+  "
         >
-          <CalendarDays size={17} />
+          <div
+            className="
+    w-9
+    h-9
+    rounded-full
+    bg-blue-100
+    flex
+    items-center
+    justify-center
+    "
+          >
+            <CalendarDays size={17} className="text-blue-600" />
+          </div>
 
-          {book.createdAt
-            ? new Date(book.createdAt).toLocaleDateString()
-            : "Date unavailable"}
+          <div>
+            <p className="text-xs text-gray-400">Published Date</p>
+
+            <p className="font-medium text-gray-700">
+              {book.createdAt
+                ? new Date(book.createdAt).toLocaleDateString()
+                : "Date unavailable"}
+            </p>
+          </div>
         </div>
 
         {/* DESCRIPTION */}
 
-        <div>
-          <h3
-            className="
-            font-semibold
-            text-lg
-            mb-2
-          "
-          >
-            About this ebook
-          </h3>
+        <div
+          className="
+  mt-6
+  p-5
+  rounded-2xl
+  bg-gray-50
+  border
+  shadow-sm
+  "
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <div
+              className="
+      w-8
+      h-8
+      rounded-lg
+      bg-purple-100
+      flex
+      items-center
+      justify-center
+      "
+            >
+              📖
+            </div>
+
+            <h3
+              className="
+      font-bold
+      text-lg
+      text-gray-800
+      "
+            >
+              About this ebook
+            </h3>
+          </div>
 
           <p
             className="
-            text-gray-600
-            leading-relaxed
-          "
+    text-gray-600
+    leading-8
+    text-sm
+    md:text-base
+    "
           >
             {book.description}
           </p>
@@ -274,13 +435,19 @@ export default function BookDetailsCard({ book, currentUser }) {
             startContent={!loading && <ShoppingCart size={18} />}
             className={`
             w-full
-            h-12
-            text-md
-            font-semibold
+    h-14
+    rounded-xl
+    text-base
+    font-bold
+    shadow-md
+    transition-all
+    duration-300
+    hover:scale-[1.02]
+    active:scale-95
 
             ${
               purchased || isOwner
-                ? "bg-gray-200 text-gray-500"
+                ? "bg-red-100 text-red-600 border border-red-200 cursor-not-allowed"
                 : "bg-black text-white hover:bg-gray-800"
             }
 

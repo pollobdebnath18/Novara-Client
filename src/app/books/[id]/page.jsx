@@ -1,4 +1,5 @@
 import BookDetailsCard from "@/components/books/BookDetailsCard";
+import { getPurchasedBooksByUser } from "@/lib/api/books";
 import { getBookForBookDetails } from "@/lib/api/writers";
 import { auth } from "@/lib/auth"; // your better-auth/server auth
 import { getUserSession } from "@/lib/core/session";
@@ -6,12 +7,17 @@ import { getUserSession } from "@/lib/core/session";
 export default async function BookDetailsPage({ params }) {
   const { id } = await params;
 
-  // logged user
   const currentUser = await getUserSession();
 
-  // console.log(currentUser, "currentUser");
-
   const book = await getBookForBookDetails(id);
+
+  const purchased = currentUser?.id
+    ? await getPurchasedBooksByUser(currentUser.id)
+    : [];
+
+  const isPurchased = purchased.some(
+    (item) => String(item.bookId) === String(book._id),
+  );
 
   if (!book) {
     return (
@@ -23,7 +29,11 @@ export default async function BookDetailsPage({ params }) {
 
   return (
     <div className="p-6">
-      <BookDetailsCard book={book} currentUser={currentUser} />
+      <BookDetailsCard
+        book={book}
+        currentUser={currentUser}
+        isPurchased={isPurchased}
+      />
     </div>
   );
 }

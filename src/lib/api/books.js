@@ -12,3 +12,8 @@ export const getBookById = async (id) => {
 export const getBookmarkedBooksByUser = async (id) => {
   return serverFetch(`/api/bookmark?writerId=${id}`);
 };
+
+// book details page api call for purchased books
+export const getPurchasedBooksByUser = async (id) => {
+  return serverFetch(`/api/purchases/my/?userId=${id}`);
+};
