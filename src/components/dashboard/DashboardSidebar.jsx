@@ -32,7 +32,7 @@ export async function DashboardSidebar() {
     {
       icon: "ChartColumn",
       label: "Sales History",
-      href: "/dashboard/writer/sales",
+      href: "/dashboard/writer/sales-history",
     },
     { icon: "Person", label: "Profile", href: "/dashboard/writer/my-profile" },
   ];

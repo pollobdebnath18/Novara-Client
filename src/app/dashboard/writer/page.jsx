@@ -1,101 +1,151 @@
 import { getUserSession } from "@/lib/core/session";
-import { FaBook, FaPlus, FaChartLine, FaBookmark } from "react-icons/fa";
+
+import { getBooksById, getSalesHistory } from "@/lib/api/writers";
+import { getBookmarkedBooksByUser } from "@/lib/api/books";
+
+import WriterStats from "@/components/writer/WriterStats";
 
 const WriterPage = async () => {
   const user = await getUserSession();
 
-  console.log(user);
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h1 className="text-xl font-semibold text-gray-500">
+          Please login first
+        </h1>
+      </div>
+    );
+  }
+
+  // get writer books
+  const books = (await getBooksById(user.id)) || [];
+
+  // get sales history
+  const sales = (await getSalesHistory(user.id)) || [];
+
+  // get bookmarks
+  const bookmarks = (await getBookmarkedBooksByUser(user.id)) || [];
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6 space-y-10">
       {/* HERO SECTION */}
 
-      <section className="rounded-2xl border p-8 bg-gradient-to-r from-gray-50 to-white">
-        <h1 className="text-4xl font-bold">
-          Welcome back, {user?.name} 👋
+      <section
+        className="
+        rounded-3xl
+        border
+        bg-gradient-to-r
+        from-purple-50
+        via-white
+        to-pink-50
+        p-8
+        shadow-sm
+        "
+      >
+        <h1
+          className="
+          text-4xl
+          font-bold
+          text-gray-800
+          "
+        >
+          Welcome back, {user.name} 👋
         </h1>
 
-        <p className="text-gray-500 mt-3 max-w-2xl">
-          Manage your ebooks, publish new content, track your sales, and grow
-          your digital library from your writer dashboard.
+        <p
+          className="
+          mt-3
+          text-gray-500
+          max-w-3xl
+          "
+        >
+          Manage your ebook library, track your sales, monitor reader engagement
+          and publish new content from your writer dashboard.
         </p>
-
-        <div className="mt-6 flex gap-4">
-          <button
-            className="
-            flex items-center gap-2
-            px-5 py-3 rounded-xl
-            bg-black text-white
-            hover:opacity-90
-            "
-          >
-            <FaPlus />
-            Add New Ebook
-          </button>
-
-          <button
-            className="
-            flex items-center gap-2
-            px-5 py-3 rounded-xl
-            border
-            "
-          >
-            <FaBook />
-            Manage Books
-          </button>
-        </div>
       </section>
 
-      {/* QUICK OVERVIEW */}
+      {/* STATS */}
 
       <section>
-        <h2 className="text-xl font-semibold mb-4">Quick Overview</h2>
+        <div className="mb-5">
+          <h2
+            className="
+            text-2xl
+            font-bold
+            text-gray-800
+            "
+          >
+            Dashboard Overview
+          </h2>
 
-        <div className="grid md:grid-cols-3 gap-5">
-          <div className="rounded-xl border p-5">
-            <div className="flex items-center gap-3">
-              <FaBook className="text-xl" />
-
-              <p className="text-gray-500">Total Ebooks</p>
-            </div>
-
-            <h3 className="text-3xl font-bold mt-3">0</h3>
-          </div>
-
-          <div className="rounded-xl border p-5">
-            <div className="flex items-center gap-3">
-              <FaChartLine className="text-xl" />
-
-              <p className="text-gray-500">Total Sales</p>
-            </div>
-
-            <h3 className="text-3xl font-bold mt-3">0</h3>
-          </div>
-
-          <div className="rounded-xl border p-5">
-            <div className="flex items-center gap-3">
-              <FaBookmark className="text-xl" />
-
-              <p className="text-gray-500">Bookmarks</p>
-            </div>
-
-            <h3 className="text-3xl font-bold mt-3">0</h3>
-          </div>
+          <p className="text-gray-500 mt-1">Your writing performance summary</p>
         </div>
+
+        <WriterStats books={books} sales={sales} bookmarks={bookmarks} />
       </section>
 
-      {/* WRITER INFO */}
+      {/* RECENT SALES */}
 
-      <section className="rounded-2xl border p-6">
-        <h2 className="text-xl font-semibold">Writer Profile</h2>
+      <section
+        className="
+        bg-white
+        border
+        rounded-2xl
+        p-6
+        shadow-sm
+        "
+      >
+        <h2
+          className="
+          text-xl
+          font-bold
+          mb-5
+          "
+        >
+          Recent Sales
+        </h2>
 
-        <div className="mt-4 space-y-2 text-gray-600">
-          <p>Name: {user?.name}</p>
+        {sales.length === 0 ? (
+          <p className="text-gray-500">No sales found</p>
+        ) : (
+          <div className="space-y-4">
+            {sales.slice(0, 5).map((sale) => (
+              <div
+                key={sale._id}
+                className="
+                    flex
+                    justify-between
+                    items-center
+                    border-b
+                    pb-3
+                    "
+              >
+                <div>
+                  <h3 className="font-semibold">{sale.name}</h3>
 
-          <p>Email: {user?.email}</p>
+                  <p
+                    className="
+                        text-sm
+                        text-gray-500
+                        "
+                  >
+                    Buyer: {sale.userEmail}
+                  </p>
+                </div>
 
-          <p>Role: Writer</p>
-        </div>
+                <div
+                  className="
+                      font-bold
+                      text-green-600
+                      "
+                >
+                  ৳ {sale.priceId}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

@@ -9,3 +9,8 @@ export const getBooksById = async (id) => {
 export const getBookForBookDetails = async (id) => {
   return serverFetch(`/api/writers/books/${id}`);
 };
+
+// sales history api for writers
+export const getSalesHistory = async (id) => {
+  return serverFetch(`/api/sales-history?writerId=${id}`);
+}

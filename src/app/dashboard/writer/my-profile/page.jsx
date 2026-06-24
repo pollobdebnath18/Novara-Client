@@ -16,7 +16,7 @@ const ProfilePage = async () => {
 
   const books = await getBooksById(user?.id);
   //   console.log(books);
-  const bookList = books || [];
+  const bookList = books?.filter((book) => book.status === "published") || [];
 
   if (!user) {
     return (

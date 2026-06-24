@@ -11,6 +11,9 @@ export async function POST(request) {
 
     const formData = await request.formData();
     const bookId = formData.get("bookId");
+    const writerId = formData.get("writerId");
+    const title = formData.get("title");
+    const price = Number(formData.get("price"));
 
     // user
     const user = await getUserSession();
@@ -21,17 +24,25 @@ export async function POST(request) {
       line_items: [
         {
           // Provide the exact Price ID (for example, price_1234) of the product you want to sell
-          price: PRICE_ID,
+          price_data: {
+            currency: "usd",
+            unit_amount: Number(price) * 100,
+            product_data: {
+              name: title,
+            },
+          },
           quantity: 1,
         },
       ],
       metadata: {
-        priceId: PRICE_ID,
+        priceId: Number(price),
         userEmail: user.email,
         userId: user.id,
         bookId: bookId,
+        writerId: String(writerId),
+        name: String(title),
       },
-      mode: "subscription",
+      mode: "payment",
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
     });
     return NextResponse.redirect(session.url, 303);

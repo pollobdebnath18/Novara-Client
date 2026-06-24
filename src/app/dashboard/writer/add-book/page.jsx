@@ -21,6 +21,7 @@ import { FaBook, FaFileAlt, FaDollarSign, FaTag } from "react-icons/fa";
 import { getUserSession } from "@/lib/core/session";
 import { addBook } from "@/lib/actions/writers";
 import { useRouter } from "next/navigation";
+import { uploadToImgBB } from "@/lib/actions/imgUpload";
 
 const WriterAddBookPage = () => {
   const [imageFile, setImageFile] = useState(null);

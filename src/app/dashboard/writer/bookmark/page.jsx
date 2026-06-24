@@ -69,8 +69,8 @@ const BookMarkedBook = async () => {
                   {/* COVER */}
                   <div className="h-64 overflow-hidden">
                     <img
-                      src={book.coverImage}
-                      alt={book.title}
+                      src={book?.coverImage}
+                      alt={book?.title}
                       className="
                     w-full
                     h-full
@@ -83,10 +83,10 @@ const BookMarkedBook = async () => {
 
                   {/* CONTENT */}
                   <div className="p-5">
-                    <h2 className="text-xl font-bold">{book.title}</h2>
+                    <h2 className="text-xl font-bold">{book?.title}</h2>
 
                     <p className="text-sm text-gray-500 mt-1">
-                      By {book.writerName}
+                      By {book?.writerName}
                     </p>
 
                     <p
@@ -97,7 +97,7 @@ const BookMarkedBook = async () => {
                   line-clamp-2
                 "
                     >
-                      {book.description}
+                      {book?.description}
                     </p>
 
                     <div className="flex justify-between items-center mt-5">
@@ -111,16 +111,16 @@ const BookMarkedBook = async () => {
                     text-sm
                   "
                       >
-                        {book.genre}
+                        {book?.genre}
                       </span>
 
                       <span className="font-bold text-purple-600">
-                        ${book.price}
+                        ${book?.price}
                       </span>
                     </div>
 
                     <Link
-                      href={`/books/${book._id}`}
+                      href={`/books/${book?._id}`}
                       className="
                     block
                     text-center

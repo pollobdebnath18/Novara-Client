@@ -261,8 +261,11 @@ export default function BookDetailsCard({ book, currentUser }) {
 
         {/* PURCHASE */}
 
-        <form action="/api/subscriptions" method="POST">
+        <form action="/api/payment" method="POST">
           <input type="hidden" name="bookId" value={book._id} />
+          <input type="hidden" name="title" value={book.title} />
+          <input type="hidden" name="price" value={book.price} />
+          <input type="hidden" name="writerId" value={book.id} />
           <Button
             // onPress={handleBuy}
             type="submit"
