@@ -4,12 +4,16 @@ import { getBooksById, getSalesHistory } from "@/lib/api/writers";
 import { getBookmarkedBooksByUser } from "@/lib/api/books";
 
 import WriterStats from "@/components/writer/WriterStats";
+import { getTokenServer } from "@/lib/token";
 
 const WriterPage = async () => {
   const user = await getUserSession();
 
-  const token = await jwtToken();
-  console.log(token);
+  // const token = await jwtToken();
+  // console.log(token);
+
+  const token = await getTokenServer();
+  console.log(token ,' this create now');
 
  
 

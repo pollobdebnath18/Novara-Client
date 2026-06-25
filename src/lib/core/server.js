@@ -1,10 +1,10 @@
-import { jwtToken } from "./session";
+import { getTokenServer } from "../token";
 
 // "use server";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const authHeaders = async () => {
-  const token = await jwtToken();
+  const token = await getTokenServer();
   console.log(token, "from server");
   const header = token
     ? {

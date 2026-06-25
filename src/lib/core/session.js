@@ -23,15 +23,16 @@ export const requireRole = async (role) => {
   }
 };
 
-export const jwtToken = async () => {
+// export const jwtToken = async () => {
 
-  const res = await fetch(
-    `${process.env.BETTER_AUTH_URL}/api/auth/token`,
-    {
-      headers: await headers(),
-      cache: "no-store",
-    },
-  );
-  const data = await res.json();
-  return data?.token || null;
-};
+//   const res = await fetch(
+//     `${process.env.BETTER_AUTH_URL}/api/auth/token`,
+//     {
+//       headers: await headers(),
+//       cache: "no-store",
+//     },
+//   );
+//   const data = await res.json();
+//   return data?.token || null;
+// };
+

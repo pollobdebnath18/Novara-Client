@@ -1,9 +1,13 @@
 import BookCard from "@/components/books/BookCard";
+import BookPagination from "@/components/books/BookPagination";
 import { getAllBooks, getPurchasedBooksByUser } from "@/lib/api/books";
 import { getUserSession } from "@/lib/core/session";
 
-const BrowseBooks = async () => {
-  const books = await getAllBooks();
+const BrowseBooks = async ({ searchParams }) => {
+  const params = await searchParams;
+  // console.log(params);
+  const books = await getAllBooks(params.page);
+  // console.log(books);
 
   const user = await getUserSession();
 
@@ -14,7 +18,7 @@ const BrowseBooks = async () => {
     purchasedBooks = await getPurchasedBooksByUser(user.id);
   }
 
-  const updatedBooks = books.map((book) => {
+  const updatedBooks = books.data.map((book) => {
     const isPurchased = purchasedBooks.some(
       (purchase) => String(purchase.bookId) === String(book._id),
     );
@@ -59,6 +63,9 @@ const BrowseBooks = async () => {
         {updatedBooks.map((book) => (
           <BookCard key={book._id} book={book} />
         ))}
+      </div>
+      <div className="">
+        <BookPagination booksData={books} />
       </div>
     </div>
   );

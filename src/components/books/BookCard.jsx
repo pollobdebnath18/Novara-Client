@@ -1,5 +1,6 @@
 "use client";
 
+import { Pagination, Table } from "@heroui/react";
 import Link from "next/link";
 
 export default function BookCard({ book }) {
@@ -13,8 +14,9 @@ export default function BookCard({ book }) {
   const isPurchased = book.status === "sold";
 
   return (
-    <div
-      className="
+    <>
+      <div
+        className="
       group
       relative
       rounded-2xl
@@ -26,13 +28,13 @@ export default function BookCard({ book }) {
       transition-all
       duration-300
       "
-    >
-      {/* IMAGE */}
-      <div className="relative overflow-hidden">
-        <img
-          src={book.coverImage}
-          alt={book.title}
-          className="
+      >
+        {/* IMAGE */}
+        <div className="relative overflow-hidden">
+          <img
+            src={book.coverImage}
+            alt={book.title}
+            className="
           h-48
           w-full
           object-cover
@@ -40,15 +42,15 @@ export default function BookCard({ book }) {
           transition-transform
           duration-300
           "
-        />
+          />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
-        {/* STATUS */}
-        <div className="absolute top-3 right-3">
-          {isPurchased ? (
-            <span
-              className="
+          {/* STATUS */}
+          <div className="absolute top-3 right-3">
+            {isPurchased ? (
+              <span
+                className="
               px-3 py-1
               text-xs
               font-semibold
@@ -57,12 +59,12 @@ export default function BookCard({ book }) {
               text-white
               shadow
               "
-            >
-              Purchased
-            </span>
-          ) : (
-            <span
-              className="
+              >
+                Purchased
+              </span>
+            ) : (
+              <span
+                className="
               px-3 py-1
               text-xs
               font-semibold
@@ -71,41 +73,41 @@ export default function BookCard({ book }) {
               text-white
               shadow
               "
-            >
-              Available
-            </span>
-          )}
+              >
+                Available
+              </span>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* CONTENT */}
-      <div className="p-4 space-y-3">
-        <h2
-          className="
+        {/* CONTENT */}
+        <div className="p-4 space-y-3">
+          <h2
+            className="
           text-base
           font-bold
           text-gray-900
           line-clamp-2
           "
-        >
-          {book.title}
-        </h2>
+          >
+            {book.title}
+          </h2>
 
-        <p className="text-xs text-gray-500">
-          by
-          <span className="font-medium text-gray-700 ml-1">
-            {book.writerName || book.email}
-          </span>
-        </p>
-
-        <div className="flex items-center justify-between">
-          <p className="text-xl font-bold text-green-600">
-            <span className="text-3xl">৳</span>
-            {book.price}
+          <p className="text-xs text-gray-500">
+            by
+            <span className="font-medium text-gray-700 ml-1">
+              {book.writerName || book.email}
+            </span>
           </p>
 
-          <span
-            className={`
+          <div className="flex items-center justify-between">
+            <p className="text-xl font-bold text-green-600">
+              <span className="text-3xl">৳</span>
+              {book.price}
+            </p>
+
+            <span
+              className={`
             text-xs
             px-2
             py-1
@@ -117,16 +119,16 @@ export default function BookCard({ book }) {
               "bg-gray-100 text-gray-700 ring-gray-200"
             }
             `}
-          >
-            {book.genre}
-          </span>
-        </div>
+            >
+              {book.genre}
+            </span>
+          </div>
 
-        {/* BUTTON */}
+          {/* BUTTON */}
 
-        <Link
-          href={`/books/${book._id}`}
-          className={`
+          <Link
+            href={`/books/${book._id}`}
+            className={`
           w-full
           mt-3
           flex
@@ -146,10 +148,11 @@ export default function BookCard({ book }) {
           }
 
           `}
-        >
-          {isPurchased ? "Already Purchased" : "View Details"}
-        </Link>
+          >
+            {isPurchased ? "Already Purchased" : "View Details"}
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
