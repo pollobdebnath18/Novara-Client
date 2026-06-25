@@ -26,56 +26,120 @@ export default function ManageAllUsersTable({ users }) {
   };
 
   return (
-    <div className="bg-white border rounded-2xl p-4">
+    <div
+      className="
+    bg-white
+    rounded-3xl
+    border
+    shadow-sm
+    p-6
+    overflow-hidden
+    "
+    >
       <Table>
         <Table.ScrollContainer>
           <Table.Content aria-label="Users Table">
             {/* HEADER */}
             <Table.Header>
               <Table.Column isRowHeader>User</Table.Column>
+
               <Table.Column>Email</Table.Column>
+
               <Table.Column>Role</Table.Column>
+
               <Table.Column>Actions</Table.Column>
             </Table.Header>
 
             {/* BODY */}
             <Table.Body>
               {userList.map((user) => (
-                <Table.Row key={user._id}>
+                <Table.Row
+                  key={user._id}
+                  className="
+                hover:bg-gray-50
+                transition
+                duration-200
+                "
+                >
                   {/* USER */}
                   <Table.Cell>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">
+                      <div
+                        className="
+                      w-11
+                      h-11
+                      rounded-2xl
+                      bg-gradient-to-br
+                      from-indigo-500
+                      to-purple-600
+                      text-white
+                      flex
+                      items-center
+                      justify-center
+                      font-bold
+                      shadow
+                      "
+                      >
                         {user.name?.charAt(0)}
                       </div>
 
                       <div>
-                        <p className="font-semibold">{user.name}</p>
-                        <p className="text-xs text-gray-500">
-                          {user._id?.slice(-6)}
+                        <p
+                          className="
+                        font-semibold
+                        text-gray-800
+                        "
+                        >
+                          {user.name}
+                        </p>
+
+                        <p
+                          className="
+                        text-xs
+                        text-gray-400
+                        "
+                        >
+                          ID: {user._id?.slice(-6)}
                         </p>
                       </div>
                     </div>
                   </Table.Cell>
 
                   {/* EMAIL */}
-                  <Table.Cell>{user.email}</Table.Cell>
+                  <Table.Cell>
+                    <span
+                      className="
+                    text-gray-600
+                    text-sm
+                    "
+                    >
+                      {user.email}
+                    </span>
+                  </Table.Cell>
 
+                  {/* ROLE */}
                   <Table.Cell>
                     <span
                       className={`
-      px-3 py-1 rounded-full text-xs font-semibold capitalize
+                    px-3
+                    py-1.5
+                    rounded-full
+                    text-xs
+                    font-semibold
+                    capitalize
+                    inline-flex
+                    items-center
 
-      ${
-        user.role === "Admin"
-          ? "bg-red-100 text-red-700 ring-1 ring-red-200"
-          : user.role === "Writer"
-            ? "bg-blue-100 text-blue-700 ring-1 ring-blue-200"
-            : user.role === "Reader"
-              ? "bg-purple-100 text-purple-700 ring-1 ring-purple-200"
-              : "bg-gray-100 text-gray-700 ring-1 ring-gray-200"
-      }
-    `}
+                    ${
+                      user.role === "Admin"
+                        ? "bg-red-50 text-red-600 ring-1 ring-red-200"
+                        : user.role === "Writer"
+                          ? "bg-blue-50 text-blue-600 ring-1 ring-blue-200"
+                          : user.role === "Reader"
+                            ? "bg-purple-50 text-purple-600 ring-1 ring-purple-200"
+                            : "bg-gray-100 text-gray-600"
+                    }
+                    `}
                     >
                       {user.role || "User"}
                     </span>
@@ -83,18 +147,25 @@ export default function ManageAllUsersTable({ users }) {
 
                   {/* ACTIONS */}
                   <Table.Cell>
-                    <div className="flex flex-wrap gap-2">
-                      {/* ROLE ACTIONS */}
-
+                    <div
+                      className="
+                    flex
+                    flex-wrap
+                    gap-2
+                    "
+                    >
                       {user.role !== "Reader" && (
                         <Button
                           onPress={() => handleRoleChange(user._id, "Reader")}
                           size="sm"
                           variant="flat"
-                          color="secondary"
-                          startContent="👤"
+                          className="
+                        bg-purple-50
+                        text-purple-600
+                        hover:bg-purple-100
+                        "
                         >
-                          Reader
+                          👤 Reader
                         </Button>
                       )}
 
@@ -103,10 +174,13 @@ export default function ManageAllUsersTable({ users }) {
                           onPress={() => handleRoleChange(user._id, "Writer")}
                           size="sm"
                           variant="flat"
-                          color="primary"
-                          startContent="✍️"
+                          className="
+                        bg-blue-50
+                        text-blue-600
+                        hover:bg-blue-100
+                        "
                         >
-                          Writer
+                          ✍️ Writer
                         </Button>
                       )}
 
@@ -115,21 +189,27 @@ export default function ManageAllUsersTable({ users }) {
                           onPress={() => handleRoleChange(user._id, "Admin")}
                           size="sm"
                           variant="flat"
-                          color="success"
-                          startContent="🛡️"
+                          className="
+                        bg-green-50
+                        text-green-600
+                        hover:bg-green-100
+                        "
                         >
-                          Admin
+                          🛡 Admin
                         </Button>
                       )}
 
-                      {/* DELETE */}
                       <Button
                         onClick={() => handleDelete(user._id)}
                         size="sm"
                         variant="flat"
-                        className="text-red-600 bg-red-50 hover:bg-red-100"
-                        startContent={<RiDeleteBinLine />}
+                        className="
+                      bg-red-50
+                      text-red-600
+                      hover:bg-red-100
+                      "
                       >
+                        <RiDeleteBinLine />
                         Delete
                       </Button>
                     </div>

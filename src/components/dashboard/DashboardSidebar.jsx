@@ -6,7 +6,6 @@ import DashboardNav from "./DashboardNav";
 import Image from "next/image";
 import User from "@/image/user.png";
 
-
 export async function DashboardSidebar() {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -54,23 +53,31 @@ export async function DashboardSidebar() {
       label: "Bookmarks",
       href: "/dashboard/reader/bookmark",
     },
-    { icon: "Person", label: "My Profile", href: "/dashboard/reader/my-profile" },
+    {
+      icon: "Person",
+      label: "My Profile",
+      href: "/dashboard/reader/my-profile",
+    },
   ];
 
   const NavAdmin = [
-    { icon: "House", label: "Home", href: "/dashboard/admin" },
     {
-      icon: "Magnifier",
+      icon: "House",
+      label: "Home",
+      href: "/dashboard/admin",
+    },
+    {
+      icon: "Person",
       label: "Manage Users",
       href: "/dashboard/admin/manage-users",
     },
     {
-      icon: "Bell",
+      icon: "Book",
       label: "Manage All Ebooks",
       href: "/dashboard/admin/ebooks",
     },
     {
-      icon: "Gear",
+      icon: "ChartColumn",
       label: "View All Transactions",
       href: "/dashboard/admin/transactions",
     },
