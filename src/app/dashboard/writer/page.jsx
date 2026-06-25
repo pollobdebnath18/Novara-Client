@@ -1,4 +1,4 @@
-import { getUserSession } from "@/lib/core/session";
+import { getUserSession, jwtToken } from "@/lib/core/session";
 
 import { getBooksById, getSalesHistory } from "@/lib/api/writers";
 import { getBookmarkedBooksByUser } from "@/lib/api/books";
@@ -7,6 +7,11 @@ import WriterStats from "@/components/writer/WriterStats";
 
 const WriterPage = async () => {
   const user = await getUserSession();
+
+  const token = await jwtToken();
+  console.log(token);
+
+ 
 
   if (!user) {
     return (

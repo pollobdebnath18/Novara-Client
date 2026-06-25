@@ -1,7 +1,7 @@
 import { serverMutation } from "../core/server";
 
 export const addBook = async (newBook, method)=>{
-    console.log(newBook , method)
+    // console.log(newBook , method)
     return serverMutation('/api/writers',newBook , method);
 }
 

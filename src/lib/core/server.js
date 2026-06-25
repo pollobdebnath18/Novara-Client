@@ -1,5 +1,19 @@
+import { jwtToken } from "./session";
+
 // "use server";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+const authHeaders = async () => {
+  const token = await jwtToken();
+  console.log(token, "from server");
+  const header = token
+    ? {
+        authorization: `Bearer ${token}`,
+      }
+    : {};
+
+  return header;
+};
 
 // fetch data for GET
 export const serverFetch = async (path) => {
@@ -16,6 +30,7 @@ export const serverMutation = async (path, data, method) => {
     method: method,
     headers: {
       "Content-Type": "application/json",
+      ...(await authHeaders()),
     },
     body: JSON.stringify(data),
   });
