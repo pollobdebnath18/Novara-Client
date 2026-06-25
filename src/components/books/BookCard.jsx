@@ -60,7 +60,7 @@ export default function BookCard({ book }) {
               shadow
               "
               >
-                Purchased
+                Sold
               </span>
             ) : (
               <span
@@ -149,7 +149,7 @@ export default function BookCard({ book }) {
 
           `}
           >
-            {isPurchased ? "Already Purchased" : "View Details"}
+           View Details
           </Link>
         </div>
       </div>

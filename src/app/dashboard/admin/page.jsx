@@ -1,13 +1,11 @@
 import AdminOverviewCharts from "@/components/admin/AdminOverviewCharts";
 import { getTransactions } from "@/lib/api/admin";
-import { getAllUsers, jwtToken} from "@/lib/core/session";
+import { getAllUsers} from "@/lib/core/session";
 
 export default async function AdminHomePage() {
   const users = await getAllUsers();
   const transactions = await getTransactions();
 
-  // const token = await jwtToken();
-  console.log(token);
 
   const overview = {
     totalUsers: users.length,
@@ -22,7 +20,7 @@ export default async function AdminHomePage() {
     ),
   };
 
-  console.log(overview);
+  // console.log(overview);
 
   return (
     <div className="space-y-8">

@@ -299,7 +299,7 @@ export default function BookDetailsCard({ book, currentUser, isPurchased }) {
       duration-300
     "
           >
-            {purchased ? "Sold" : "Available"}
+            {purchased ? "Purchased" : "Available"}
           </Chip>
 
           {/* Price */}

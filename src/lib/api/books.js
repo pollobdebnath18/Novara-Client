@@ -1,10 +1,10 @@
 import { serverFetch } from "../core/server";
 
-export const getAllBooks = async (page) => {
+export const getAllBooks = async (page,search="") => {
   if (!page) {
     page = 1;
   }
-  return serverFetch(`/api/paginations?page=${page}`);
+  return serverFetch(`/api/paginations?page=${page}&search=${search}`);
 };
 
 export const getBookById = async (id) => {

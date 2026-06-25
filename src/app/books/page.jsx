@@ -1,12 +1,15 @@
 import BookCard from "@/components/books/BookCard";
 import BookPagination from "@/components/books/BookPagination";
+import FilterFunctionality from "@/components/books/FilterFunctionality";
+import SearchFunctionality from "@/components/books/SearchFunctionality";
+import SortFunctionality from "@/components/books/SortFunctionality";
 import { getAllBooks, getPurchasedBooksByUser } from "@/lib/api/books";
 import { getUserSession } from "@/lib/core/session";
 
 const BrowseBooks = async ({ searchParams }) => {
-  const params = await searchParams;
+  const { search, page } = await searchParams;
   // console.log(params);
-  const books = await getAllBooks(params.page);
+  const books = await getAllBooks(page, search);
   // console.log(books);
 
   const user = await getUserSession();
@@ -41,7 +44,7 @@ const BrowseBooks = async ({ searchParams }) => {
         </p>
 
         <div className="flex gap-4 text-sm text-gray-400">
-          <span>📚 {books.length} Books Available</span>
+          <span>📚 {books.data.length} Books Available</span>
 
           <span>🔎 Free Preview</span>
 
@@ -49,6 +52,12 @@ const BrowseBooks = async ({ searchParams }) => {
         </div>
       </div>
 
+      {/* Search , Fileter , Sort */}
+      <div className = "flex  items-center gap-10">
+        <SearchFunctionality />
+        <FilterFunctionality />
+        <SortFunctionality />
+      </div>
       {/* BOOK GRID */}
 
       <div
