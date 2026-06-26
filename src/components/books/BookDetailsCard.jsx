@@ -21,6 +21,7 @@ export default function BookDetailsCard({ book, currentUser, isPurchased }) {
   const [loading, setLoading] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const purchased = isPurchased;
+  console.log(book);
 
   useEffect(() => {
     const loadBookmark = async () => {
@@ -214,7 +215,7 @@ export default function BookDetailsCard({ book, currentUser, isPurchased }) {
         {/* WRITER */}
 
         <Link
-          href={`/dashboard/writer/my-profile/${book.id}`}
+          href={`/writer-profile/${book.id}`}
           className="
     group
     flex

@@ -11,6 +11,10 @@ export const getUserSession = async () => {
   return session?.user || null;
 };
 
+export const getUserById = async (id)=>{
+  return serverFetch(`/api/user/writer/${id}`);
+}
+
 export const getAllUsers = async () => {
   return protectedServerFetch("/api/user");
 };

@@ -5,6 +5,10 @@ export const getBooksById = async (id) => {
   return protectedServerFetch(`/api/writers/books/my/${id}`);
 };
 
+export const getBooksForWriterProfilePage= async (id) => {
+  return serverFetch(`/api/writers/profile/${id}`);
+};
+
 //book details by id
 export const getBookForBookDetails = async (id) => {
   return serverFetch(`/api/writers/books/${id}`);
