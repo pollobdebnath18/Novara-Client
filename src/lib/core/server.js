@@ -5,7 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const authHeaders = async () => {
   const token = await getTokenServer();
-  console.log(token, "from server");
+  // console.log(token, "from server");
   const header = token
     ? {
         authorization: `Bearer ${token}`,
@@ -22,6 +22,17 @@ export const serverFetch = async (path) => {
   // console.log(res)
   return handleError(res);
 };
+
+// protected server fetch route
+export const protectedServerFetch = async (path) => {
+  const res = await fetch(`${baseUrl}${path}`,{
+    headers: {
+      ...(await authHeaders()),
+    },
+  });
+  return handleError(res);
+};
+
 
 // fetch data for POST and PATCH
 export const serverMutation = async (path, data, method) => {

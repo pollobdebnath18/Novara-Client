@@ -61,10 +61,7 @@ const EditBookModal = ({ isOpen, setIsOpen, book, setBookList }) => {
       coverImage: imageUrl,
     };
 
-    // console.log("BOOK ID:", bookId);
-    // console.log("UPDATE PAYLOAD:", payload);
 
-    // example API call
     const res = await updateModal(bookId, payload, "PATCH");
 
     setBookList((prev) =>

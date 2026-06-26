@@ -1,11 +1,11 @@
-import { serverFetch } from "../core/server";
+import { protectedServerFetch, serverFetch } from "../core/server";
 
 // reader boookmark page api call
 export const getAllBookmarkedBooks = async (id) => {
-  return serverFetch(`/api/bookmarks/my/${id}`);
+  return protectedServerFetch(`/api/bookmarks/my/${id}`);
 };
 
 // reader purchased books page api call
 export const getAllPurchasedBooks = async (id) => {
-  return serverFetch(`/api/payment/my/${id}`);
+  return protectedServerFetch(`/api/payment/my/${id}`);
 };

@@ -3,13 +3,11 @@ import Image from "next/image";
 import { auth } from "@/lib/auth"; // server-side auth
 import { headers } from "next/headers";
 import User from "@/image/user.png";
+import { getUserSession } from "@/lib/core/session";
 
 const MyProfilePage = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
-  });
 
-  const user = session?.user;
+  const user = await getUserSession();
 
   if (!user) {
     return (

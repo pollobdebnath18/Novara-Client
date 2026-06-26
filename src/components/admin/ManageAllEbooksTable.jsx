@@ -9,7 +9,7 @@ import { bookStatusChanged } from "@/lib/actions/admin";
 export default function ManageAllEbooksTable({ ebooks }) {
   const router = useRouter();
 
-  console.log(ebooks , 'ebooks from manage all ebooks table')
+  // console.log(ebooks , 'ebooks from manage all ebooks table')
 
   const changeStatus = async (id, status) => {
     const res = await bookStatusChanged(id, {status}, "PATCH");

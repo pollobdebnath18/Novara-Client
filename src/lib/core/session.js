@@ -1,7 +1,7 @@
 "use server";
 import { headers } from "next/headers";
 import { auth } from "../auth";
-import { serverFetch } from "./server";
+import { protectedServerFetch, serverFetch } from "./server";
 import { redirect } from "next/navigation";
 
 export const getUserSession = async () => {
@@ -12,7 +12,7 @@ export const getUserSession = async () => {
 };
 
 export const getAllUsers = async () => {
-  return serverFetch("/api/user");
+  return protectedServerFetch("/api/user");
 };
 
 export const requireRole = async (role) => {

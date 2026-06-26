@@ -3,7 +3,7 @@ import { getAllBooks } from "@/lib/api/admin";
 
 export default async function ManageAllEbooksPage() {
   const ebooks = await getAllBooks();
-  console.log(ebooks);
+  // console.log(ebooks);
 
   return (
     <div className="space-y-8">

@@ -1,6 +1,7 @@
 import { getAllBookmarkedBooks } from "@/lib/api/reader";
 import { getUserSession } from "@/lib/core/session";
 import { BookOpen, BookmarkX } from "lucide-react";
+import Link from "next/link";
 
 const BookMarkPage = async () => {
   const user = await getUserSession();
@@ -215,8 +216,10 @@ const BookMarkPage = async () => {
                       ৳ {item.book.price}
                     </span>
 
-                    <button
+                    <Link
+                      href={`/books/${item.book._id}`}
                       className="
+                     
               px-4
               py-2
               rounded-xl
@@ -230,7 +233,7 @@ const BookMarkPage = async () => {
             "
                     >
                       View Book
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

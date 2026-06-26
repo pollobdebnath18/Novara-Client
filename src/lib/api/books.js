@@ -1,4 +1,4 @@
-import { serverFetch } from "../core/server";
+import { protectedServerFetch, serverFetch } from "../core/server";
 
 export const getAllBooks = async (page,search="") => {
   if (!page) {
@@ -13,7 +13,7 @@ export const getBookById = async (id) => {
 
 //writers bookmark page api call for get all bookmarked books by user
 export const getBookmarkedBooksByUser = async (id) => {
-  return serverFetch(`/api/bookmark?writerId=${id}`);
+  return protectedServerFetch(`/api/bookmark/writer?writerId=${id}`);
 };
 
 // book details page api call for purchased books
