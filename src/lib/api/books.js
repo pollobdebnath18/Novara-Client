@@ -1,10 +1,19 @@
 import { protectedServerFetch, serverFetch } from "../core/server";
 
-export const getAllBooks = async (page,search="") => {
+export const getAllBooks = async (
+  page = 1,
+  search = "",
+  genre = "",
+  price = "",
+  status = "",
+  sort="",
+) => {
   if (!page) {
     page = 1;
   }
-  return serverFetch(`/api/paginations?page=${page}&search=${search}`);
+  return serverFetch(
+    `/api/paginations?page=${page}&search=${search}&genre=${genre}&price=${price}&status=${status}&sort=${sort}`,
+  );
 };
 
 export const getBookById = async (id) => {
@@ -13,7 +22,7 @@ export const getBookById = async (id) => {
 
 export const getFeaturedBooks = async () => {
   return serverFetch(`/api/featured-books`);
-}
+};
 
 //writers bookmark page api call for get all bookmarked books by user
 export const getBookmarkedBooksByUser = async (id) => {

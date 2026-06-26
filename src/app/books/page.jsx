@@ -7,9 +7,9 @@ import { getAllBooks, getPurchasedBooksByUser } from "@/lib/api/books";
 import { getUserSession } from "@/lib/core/session";
 
 const BrowseBooks = async ({ searchParams }) => {
-  const { search, page } = await searchParams;
+const { search, page, genre, price, status,sort } = await searchParams;
   // console.log(params);
-  const books = await getAllBooks(page, search);
+  const books = await getAllBooks(page, search, genre, price, status,sort);
   // console.log(books);
 
   const user = await getUserSession();

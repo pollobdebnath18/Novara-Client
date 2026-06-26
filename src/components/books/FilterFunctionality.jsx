@@ -37,13 +37,13 @@ const FilterFunctionality = () => {
       >
         <option value="">All Genres</option>
 
+        <option value="Technology">Technology</option>
+        <option value="Programming">Programming</option>
         <option value="Novel">Novel</option>
-
+        <option value="Education">Education</option>
+        <option value="Science">Science</option>
+        <option value="History">History</option>
         <option value="Fantasy">Fantasy</option>
-
-        <option value="Thriller">Thriller</option>
-
-        <option value="Science Fiction">Science Fiction</option>
       </select>
 
       {/* Price */}
@@ -65,7 +65,6 @@ const FilterFunctionality = () => {
 
         <option value="600-1000">600 - 1000৳</option>
       </select>
-
       {/* Availability */}
       <select
         onChange={(e) => handleFilter("status", e.target.value)}
