@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Logo from "../../image/book_logo.png";
+import BannerImg from "@/image/book_banner.webp";
 import User from "@/image/user.png";
 import { authClient } from "@/lib/auth-client";
 
@@ -19,6 +20,19 @@ const Navbar = () => {
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
+
+  console.log(pathname);
+   if (pathname.startsWith("/dashboard/admin")) {
+     return null;
+   }
+
+   if (pathname.startsWith("/dashboard/writer")) {
+     return null;
+   }
+
+   if (pathname.startsWith("/dashboard/reader")) {
+     return null;
+   }
 
   const handleLogout = async () => {
     await authClient.signOut();
@@ -52,32 +66,58 @@ const Navbar = () => {
     <nav className="sticky top-0 z-40 w-full border-b bg-white/70 backdrop-blur-xl">
       <header className="flex h-16 items-center justify-between px-6">
         {/* LOGO */}
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 overflow-hidden rounded-full border shadow-sm">
-            <Image
-              src={Logo}
-              alt="logo"
-              width={40}
-              height={40}
-              className="object-cover"
-            />
-          </div>
-
-          <Link href="/" className="no-underline text-xl font-bold">
-            <span
-              className="
-              bg-gradient-to-r 
-              from-purple-600 
-              via-fuchsia-500 
-              to-pink-500
-              bg-clip-text 
-              text-transparent
+          <div className="flex items-center gap-3 p-5 border-b">
+                  {/* LOGO */}
+                  <div
+                    className="
+            h-10
+            w-10
+            rounded-full
+            overflow-hidden
+            bg-gradient-to-br
+            from-purple-600
+            via-fuchsia-500
+            to-pink-500
+            p-[2px]
+            shadow-lg
             "
-            >
-              Novara
-            </span>
-          </Link>
-        </div>
+                  >
+                    <div className="h-full w-full rounded-full bg-white overflow-hidden">
+                      <Image
+                        src={BannerImg}
+                        alt="Novara logo"
+                        width={48}
+                        height={48}
+                        className="
+                h-full
+                w-full
+                object-cover
+                scale-125
+                "
+                      />
+                    </div>
+                  </div>
+        
+                  {/* NAME */}
+                  <div>
+                    <h2
+                      className="
+              text-3xl
+              font-extrabold
+              bg-gradient-to-r
+              from-purple-500
+              via-fuchsia-400
+              to-pink-400
+              bg-clip-text
+              text-transparent
+              "
+                    >
+                      Novara
+                    </h2>
+        
+                    <p className="text-xs text-gray-500">Digital Ebook Platform</p>
+                  </div>
+                </div>
 
         {/* DESKTOP MENU */}
 

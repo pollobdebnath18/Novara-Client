@@ -6,8 +6,22 @@ import Image from "next/image";
 import { Button } from "@heroui/react";
 import Logo from "../../image/book_logo.png";
 import { LogoFacebook, LogoGithub } from "@gravity-ui/icons";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
+   if (pathname.startsWith("/dashboard/admin")) {
+     return null;
+   }
+
+   if (pathname.startsWith("/dashboard/writer")) {
+     return null;
+   }
+
+   if (pathname.startsWith("/dashboard/reader")) {
+     return null;
+   }
+   
   return (
     <footer className="w-full bg-black text-white border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6 py-12">

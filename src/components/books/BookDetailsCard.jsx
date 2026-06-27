@@ -288,19 +288,24 @@ export default function BookDetailsCard({ book, currentUser, isPurchased }) {
           </div>
 
           {/* Purchase Status */}
+          {/* Purchase Status */}
           <Chip
-            color={purchased ? "danger" : "success"}
+            color={!currentUser ? "warning" : purchased ? "danger" : "success"}
             className="
-      px-3
-      py-1
-      font-semibold
-      shadow-sm
-      transition
-      hover:scale-105
-      duration-300
-    "
+    px-3
+    py-1
+    font-semibold
+    shadow-sm
+    transition
+    hover:scale-105
+    duration-300
+  "
           >
-            {purchased ? "Purchased" : "Available"}
+            {!currentUser
+              ? "Unavailable"
+              : purchased
+                ? "Purchased"
+                : "Available"}
           </Chip>
 
           {/* Price */}
@@ -447,18 +452,20 @@ export default function BookDetailsCard({ book, currentUser, isPurchased }) {
     active:scale-95
 
             ${
-              purchased || isOwner
+              !currentUser || purchased || isOwner
                 ? "bg-red-100 text-red-600 border border-red-200 cursor-not-allowed"
                 : "bg-black text-white hover:bg-gray-800"
             }
 
           `}
           >
-            {purchased
-              ? "Already Purchased"
-              : isOwner
-                ? "You cannot buy your own ebook"
-                : "Buy Now"}
+            {!currentUser
+              ? "Please Login First"
+              : purchased
+                ? "Already Purchased"
+                : isOwner
+                  ? "You cannot buy your own ebook"
+                  : "Buy Now"}
           </Button>
         </form>
       </div>

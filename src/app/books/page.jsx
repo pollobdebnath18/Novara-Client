@@ -5,11 +5,18 @@ import SearchFunctionality from "@/components/books/SearchFunctionality";
 import SortFunctionality from "@/components/books/SortFunctionality";
 import { getAllBooks, getPurchasedBooksByUser } from "@/lib/api/books";
 import { getUserSession } from "@/lib/core/session";
+import Link from "next/link";
+
+
+export const metadata = {
+  title: "Novara-Browse Books",
+  description: "Discover the best books, stories, and authors.",
+};
 
 const BrowseBooks = async ({ searchParams }) => {
-const { search, page, genre, price, status,sort } = await searchParams;
+  const { search, page, genre, price, status, sort } = await searchParams;
   // console.log(params);
-  const books = await getAllBooks(page, search, genre, price, status,sort);
+  const books = await getAllBooks(page, search, genre, price, status, sort);
   // console.log(books);
 
   const user = await getUserSession();
@@ -53,26 +60,173 @@ const { search, page, genre, price, status,sort } = await searchParams;
       </div>
 
       {/* Search , Fileter , Sort */}
-      <div className = "flex  items-center gap-10">
-        <SearchFunctionality />
-        <FilterFunctionality />
-        <SortFunctionality />
-      </div>
-      {/* BOOK GRID */}
+      <div className="flex flex-wrap items-center gap-1 md:gap-4 lg:gap-10">
+        {/* Search full width on small */}
+        <div className="w-full lg:w-auto">
+          <SearchFunctionality />
+        </div>
 
-      <div
-        className="
-        grid
-        grid-cols-2
-        md:grid-cols-3
-        lg:grid-cols-4
-        gap-5
-        "
-      >
-        {updatedBooks.map((book) => (
-          <BookCard key={book._id} book={book} />
-        ))}
+        {/* Genre + Price + Availability */}
+        <div className="flex flex-wrap gap-4">
+          <FilterFunctionality />
+        </div>
+
+        {/* Sort right side */}
+        <div className="ml-auto">
+          <SortFunctionality />
+        </div>
       </div>
+
+      {/* BOOK GRID */}
+      {updatedBooks.length === 0 ? (
+        <div
+          className="
+    mt-10
+    min-h-[350px]
+    rounded-3xl
+    border
+    border-purple-100
+    bg-gradient-to-br
+    from-purple-50
+    via-white
+    to-pink-50
+    flex
+    items-center
+    justify-center
+    "
+        >
+          <div
+            className="
+      text-center
+      max-w-md
+      px-6
+      "
+          >
+            {/* Icon */}
+            <div
+              className="
+        mx-auto
+        w-20
+        h-20
+        rounded-full
+        bg-gradient-to-br
+        from-purple-500
+        to-pink-500
+        flex
+        items-center
+        justify-center
+        shadow-lg
+        "
+            >
+              <span className="text-4xl">📚</span>
+            </div>
+
+            {/* Heading */}
+
+            <h2
+              className="
+        mt-6
+        text-2xl
+        md:text-3xl
+        font-extrabold
+        text-gray-900
+        "
+            >
+              No Ebooks Found
+            </h2>
+
+            {/* Description */}
+
+            <p
+              className="
+        mt-3
+        text-gray-500
+        leading-relaxed
+        "
+            >
+              We couldn t find any ebooks matching your current filters. Try
+              changing your search, genre, price range, or explore all books.
+            </p>
+
+            {/* Suggestions */}
+
+            <div
+              className="
+        mt-6
+        flex
+        flex-wrap
+        justify-center
+        gap-3
+        "
+            >
+              <span
+                className="
+          px-4
+          py-2
+          rounded-full
+          bg-purple-100
+          text-purple-700
+          text-sm
+          font-semibold
+          "
+              >
+                🔎 Try another search
+              </span>
+
+              <span
+                className="
+          px-4
+          py-2
+          rounded-full
+          bg-pink-100
+          text-pink-700
+          text-sm
+          font-semibold
+          "
+              >
+                📖 Browse categories
+              </span>
+            </div>
+
+            {/* Button */}
+
+            <Link
+              href="/books"
+              className="
+        inline-flex
+        mt-8
+        px-7
+        py-3
+        rounded-xl
+        bg-gradient-to-r
+        from-purple-600
+        to-pink-500
+        text-white
+        font-semibold
+        shadow-lg
+        hover:scale-105
+        transition
+        "
+            >
+              Explore All Books
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div
+          className="
+    grid
+    grid-cols-2
+    md:grid-cols-3
+    lg:grid-cols-4
+    gap-5
+    "
+        >
+          {updatedBooks.map((book) => (
+            <BookCard key={book._id} book={book} />
+          ))}
+        </div>
+      )}
       <div className="">
         <BookPagination booksData={books} />
       </div>

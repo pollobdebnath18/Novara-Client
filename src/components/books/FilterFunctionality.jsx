@@ -22,7 +22,7 @@ const FilterFunctionality = () => {
   };
 
   return (
-    <div className="flex gap-4 my-6">
+    <div className="flex flex-wrap md:flex-nowrap gap-4 my-6">
       {/* Genre */}
       <select
         onChange={(e) => handleFilter("genre", e.target.value)}

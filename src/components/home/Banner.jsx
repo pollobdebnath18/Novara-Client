@@ -1,64 +1,302 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import { Button } from "@heroui/react";
-import BannerImg from '../../image/book_banner.webp'
+import Link from "next/link";
+import { motion } from "motion/react";
+
+import BannerImg from "../../image/book_banner.webp";
 
 const Banner = () => {
   return (
-    <section className="w-full bg-gradient-to-b from-white via-purple-50 to-white py-16">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col-reverse md:flex-row items-center gap-12">
-        {/* LEFT SIDE */}
-        <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Discover & Read{" "}
-            <span className="bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+    <section
+      className="
+      relative
+      overflow-hidden
+      min-h-[650px]
+      flex
+      items-center
+      bg-gradient-to-br
+      from-violet-50
+      via-white
+      to-pink-50
+      "
+    >
+      {/* background blobs */}
+
+      <div
+        className="
+        absolute
+        -top-32
+        -left-32
+        w-[450px]
+        h-[450px]
+        bg-purple-300
+        rounded-full
+        blur-[120px]
+        opacity-30
+        "
+      />
+
+      <div
+        className="
+        absolute
+        bottom-0
+        right-0
+        w-[400px]
+        h-[400px]
+        bg-pink-300
+        rounded-full
+        blur-[120px]
+        opacity-30
+        "
+      />
+
+      <div
+        className="
+        relative
+        max-w-7xl
+        mx-auto
+        px-6
+        pb-8
+        pt-4
+        grid
+        lg:grid-cols-2
+        gap-16
+        items-center
+        "
+      >
+        {/* LEFT */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: -80,
+          }}
+          animate={{
+            opacity: 1,
+            x: 0,
+          }}
+          transition={{
+            duration: 0.8,
+          }}
+        >
+          <span
+            className="
+          inline-flex
+          px-5
+          py-2
+          rounded-full
+          bg-purple-100
+          text-purple-700
+          font-semibold
+          text-sm
+          "
+          >
+            📚 World s Digital Book Platform
+          </span>
+          <h1
+            className="
+          mt-6
+          text-5xl
+          md:text-7xl
+          font-black
+          leading-[1.05]
+          tracking-tight
+          text-gray-900
+          "
+          >
+            Discover & Read
+            <br />
+            <span
+              className="
+            bg-gradient-to-r
+            from-purple-600
+            via-fuchsia-500
+            to-pink-500
+            bg-clip-text
+            text-transparent
+            "
+            >
               Original Ebooks
             </span>
           </h1>
 
-          <p className="mt-5 text-gray-600 text-base md:text-lg max-w-xl">
-            Explore thousands of ebooks from talented writers around the world.
-            Read, discover, and connect with stories that inspire you.
+          <p
+            className="
+          mt-7
+          text-lg
+          md:text-xl
+          text-gray-600
+          max-w-xl
+          leading-relaxed
+          "
+          >
+            Discover amazing ebooks from talented writers. Explore stories,
+            knowledge and imagination in one modern digital library.
           </p>
-
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button
+          <div
+            className="
+          mt-9
+          flex
+          gap-5
+          "
+          >
+            <Link
+              href="/books"
               className="
-                bg-gradient-to-r 
-                from-purple-600 via-fuchsia-500 to-pink-500
-                text-white
-                px-6 py-2
-                shadow-md
-                hover:shadow-xl
-                hover:scale-[1.05]
-                transition-all
-                duration-300
-              "
+            px-8
+            py-4
+            rounded-2xl
+            bg-gradient-to-r
+            from-purple-600
+            to-pink-500
+            text-white
+            font-bold
+            shadow-xl
+            hover:scale-105
+            transition
+            "
             >
-              Explore More
-            </Button>
-
-            <Button variant="flat" className="px-6 py-2">
-              Browse Ebooks
-            </Button>
+              Explore Books →
+            </Link>
           </div>
-        </div>
+          {/* stats */}
+          <div
+            className="
+          mt-12
+          flex
+          gap-10
+          "
+          >
+            <div>
+              <h3 className="text-3xl font-black">10K+</h3>
+              <p className="text-gray-500">Books</p>
+            </div>
 
-        {/* RIGHT SIDE */}
-        <div className="flex-1 flex justify-center">
-          <div className="relative w-full max-w-md">
-            <Image
-              src={BannerImg} // 👉 replace with your image
-              alt="ebooks banner"
-              width={500}
-              height={500}
-              className="object-contain drop-shadow-xl"
+            <div>
+              <h3 className="text-3xl font-black">5K+</h3>
+              <p className="text-gray-500">Writers</p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-black">50K+</h3>
+              <p className="text-gray-500">Readers</p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* RIGHT IMAGE */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.8,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+          }}
+          className="
+        relative
+        flex
+        justify-center
+        "
+        >
+          {/* floating card 1 */}
+
+          <motion.div
+            animate={{
+              y: [0, -10, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+            }}
+            className="
+          absolute
+          top-10
+          left-0
+          z-10
+          bg-white
+          shadow-xl
+          rounded-2xl
+          px-5
+          py-4
+          "
+          >
+            <p className="text-sm text-gray-500">Total Books</p>
+
+            <h3 className="text-xl font-bold">10,000+</h3>
+          </motion.div>
+
+          {/* floating card 2 */}
+
+          <motion.div
+            animate={{
+              y: [0, 10, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
+            className="
+          absolute
+          bottom-20
+          right-0
+          z-10
+          bg-white
+          shadow-xl
+          rounded-2xl
+          px-5
+          py-4
+          "
+          >
+            <p className="text-sm text-gray-500">Active Writers</p>
+
+            <h3 className="text-xl font-bold">5,000+</h3>
+          </motion.div>
+
+          {/* image card */}
+
+          <div
+            className="
+          relative
+          p-6
+          rounded-[40px]
+          bg-white/60
+          backdrop-blur-xl
+          shadow-2xl
+          border
+          "
+          >
+            <div
+              className="
+            absolute
+            inset-0
+            bg-purple-400
+            blur-3xl
+            opacity-30
+            -z-10
+            "
             />
 
-            {/* floating glow effect */}
-            <div className="absolute -z-10 top-10 left-10 w-72 h-72 bg-purple-300 blur-3xl opacity-30 rounded-full"></div>
+            <Image
+              src={BannerImg}
+              alt="books"
+              width={550}
+              height={550}
+              className="
+            rounded-[30px]
+            object-cover
+            shadow-xl
+            "
+            />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

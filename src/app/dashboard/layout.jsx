@@ -1,15 +1,46 @@
+import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
-import React from "react";
+import { getUserSession } from "@/lib/core/session";
 
-const DashBoardLayout = ({ children }) => {
+const DashBoardLayout = async ({ children }) => {
+  const user = await getUserSession();
+
   return (
     <div className="flex min-h-screen">
-      <div className="sticky top-0 z-40 w-10 md:w-72 h-screen border-r border-default bg-background">
-        <DashboardSidebar></DashboardSidebar>
+      {/* SIDEBAR */}
+      <aside
+        className="
+  sticky
+  top-0
+  h-screen
+  w-20
+  md:w-48
+  lg:w-64
+  border-r
+  bg-white
+  "
+      >
+        <DashboardSidebar />
+      </aside>
+
+      {/* RIGHT SIDE */}
+
+      <div className="flex-1 flex flex-col">
+        {/* NAVBAR */}
+        <DashboardNavbar user={user} />
+
+        {/* CONTENT */}
+
+        <main
+          className="
+          flex-1
+          p-6
+          "
+        >
+          {children}
+        </main>
       </div>
-      <div className="flex-1  overflow-auto mx-4">{children}</div>
     </div>
   );
 };
-
 export default DashBoardLayout;

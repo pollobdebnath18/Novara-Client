@@ -1,214 +1,315 @@
 import AdminOverviewCharts from "@/components/admin/AdminOverviewCharts";
-import { getTransactions } from "@/lib/api/admin";
-import { getAllUsers} from "@/lib/core/session";
+import { getAllBooks, getTransactions } from "@/lib/api/admin";
+import { getAllUsers } from "@/lib/core/session";
+import {
+  Users,
+  PenTool,
+  BookOpen,
+  DollarSign,
+  ShieldCheck,
+} from "lucide-react";
 
 export default async function AdminHomePage() {
-  const users = await getAllUsers();
-  const transactions = await getTransactions();
+   const users = await getAllUsers();
+   const transactions = await getTransactions();
+   const books = await getAllBooks();
+
+   const overview = {
+     totalUsers: users.length,
+
+     totalWriters: users.filter((user) => user.role === "Writer").length,
+     totalReaders: users.filter((user) => user.role === "Reader").length,
+
+     totalBooksSold: books.filter((book) => book.isSold === true).length,
+
+     totalRevenue: transactions.reduce(
+       (total, item) => total + Number(item.priceId || 0),
+       0,
+     ),
+   };
 
 
-  const overview = {
-    totalUsers: users.length,
+  const stats = [
+    {
+      title: "Total Users",
+      value: overview.totalUsers,
+      icon: <Users size={24} />,
+      color: "from-purple-500 to-indigo-500",
+    },
 
-    totalWriters: users.filter((user) => user.role === "Writer").length,
+    {
+      title: "Total Writers",
+      value: overview.totalWriters,
+      icon: <PenTool size={24} />,
+      color: "from-pink-500 to-rose-500",
+    },
 
-    totalReaders: users.filter((user) => user.role === "Reader").length,
+    {
+      title: "Total Readers",
+      value: overview.totalReaders,
+      icon: <BookOpen size={24} />,
+      color: "from-blue-500 to-cyan-500",
+    },
 
-    totalRevenue: transactions.reduce(
-      (total, item) => total + Number(item.priceId || 0),
-      0,
-    ),
-  };
-
-  // console.log(overview);
+    {
+      title: "Revenue",
+      value: `৳ ${overview.totalRevenue}`,
+      icon: <DollarSign size={24} />,
+      color: "from-green-500 to-emerald-500",
+    },
+  ];
 
   return (
-    <div className="space-y-8">
-      {/* ADMIN DASHBOARD CONTAINER */}
+    <div
+      className="
+      space-y-8
+      "
+    >
+      {/* MAIN WRAPPER */}
+
       <div
         className="
-      rounded-3xl
-      bg-white
-      border
-      shadow-lg
-      p-6
-      md:p-8
-      "
-      >
-        {/* HEADER */}
-        {/* MODERN ADMIN HEADER */}
-
-        <div
-          className="
-  relative
-  overflow-hidden
-  rounded-3xl
-  p-8
-  md:p-10
-  text-white
-  shadow-2xl
-  bg-gradient-to-br
-  from-slate-900
-  via-indigo-700
-  to-purple-600
-  "
-        >
-          {/* Background Shapes */}
-
-          <div
-            className="
-    absolute
-    -top-20
-    -right-20
-    w-72
-    h-72
-    rounded-full
-    bg-white/10
-    blur-3xl
-    "
-          />
-
-          <div
-            className="
-    absolute
-    -bottom-24
-    -left-20
-    w-64
-    h-64
-    rounded-full
-    bg-purple-300/20
-    blur-3xl
-    "
-          />
-
-          <div className="relative z-10 flex justify-between items-center">
-            <div>
-              {/* Badge */}
-
-              <div
-                className="
-        inline-flex
-        items-center
-        gap-2
-        px-4
-        py-2
-        rounded-full
-        bg-white/15
-        backdrop-blur
+        rounded-3xl
         border
-        border-white/20
-        text-sm
-        mb-5
+        bg-white
+        shadow-sm
+        p-5
+        md:p-8
         "
-              >
-                📊 Admin Control Center
-              </div>
+      >
+        {/* HERO */}
 
-              <h1
-                className="
-        text-4xl
-        md:text-5xl
-        font-extrabold
-        tracking-tight
-        "
-              >
-                Admin Dashboard
-              </h1>
-
-              <p
-                className="
-        mt-3
-        max-w-xl
-        text-white/80
-        text-sm
-        md:text-base
-        "
-              >
-                Monitor users, manage ebooks, track transactions and analyze
-                your platform performance.
-              </p>
-
-              {/* small info */}
-
-              <div
-                className="
-        mt-6
-        flex
-        flex-wrap
-        gap-3
-        "
-              >
-                <div
-                  className="
-          px-4
-          py-2
-          rounded-xl
-          bg-white/10
-          backdrop-blur
-          border
-          border-white/20
-          text-sm
+        <section
+          className="
+          relative
+          overflow-hidden
+          rounded-3xl
+          bg-gradient-to-br
+          from-slate-950
+          via-purple-900
+          to-pink-700
+          p-7
+          md:p-10
+          text-white
+          shadow-xl
           "
-                >
-                  👥 User Management
-                </div>
+        >
+          {/* Glow */}
 
-                <div
-                  className="
-          px-4
-          py-2
-          rounded-xl
-          bg-white/10
-          backdrop-blur
-          border
-          border-white/20
-          text-sm
-          "
-                >
-                  📚 Ebook Analytics
-                </div>
+          <div
+            className="
+            absolute
+            -top-20
+            -right-20
+            w-72
+            h-72
+            rounded-full
+            bg-purple-400/30
+            blur-3xl
+            "
+          />
 
-                <div
-                  className="
-          px-4
-          py-2
-          rounded-xl
-          bg-white/10
-          backdrop-blur
-          border
-          border-white/20
-          text-sm
-          "
-                >
-                  💰 Revenue Tracking
-                </div>
-              </div>
-            </div>
+          <div
+            className="
+            absolute
+            -bottom-20
+            -left-20
+            w-72
+            h-72
+            rounded-full
+            bg-pink-400/20
+            blur-3xl
+            "
+          />
 
-            {/* Right Icon */}
+          <div
+            className="
+            relative
+            z-10
+            "
+          >
+            {/* Badge */}
 
             <div
               className="
-      hidden
-      md:flex
-      w-28
-      h-28
-      rounded-full
-      bg-white/20
-      backdrop-blur
-      items-center
-      justify-center
-      text-6xl
-      shadow-xl
-      "
+              inline-flex
+              items-center
+              gap-2
+              px-4
+              py-2
+              rounded-full
+              bg-white/10
+              border
+              border-white/20
+              backdrop-blur
+              text-sm
+              "
             >
-              🚀
+              <ShieldCheck size={16} />
+              Admin Control Panel
+            </div>
+
+            <h1
+              className="
+              mt-6
+              text-4xl
+              md:text-6xl
+              font-extrabold
+              tracking-tight
+              "
+            >
+              Admin Dashboard
+            </h1>
+
+            <p
+              className="
+              mt-4
+              max-w-2xl
+              text-white/70
+              text-base
+              md:text-lg
+              leading-relaxed
+              "
+            >
+              Manage users, monitor ebooks, analyze sales, and control your
+              entire Novara platform from one place.
+            </p>
+
+            <div
+              className="
+              mt-7
+              flex
+              flex-wrap
+              gap-3
+              "
+            >
+              <span
+                className="
+                rounded-xl
+                bg-white/10
+                border
+                border-white/20
+                px-4
+                py-2
+                text-sm
+                "
+              >
+                👥 User Management
+              </span>
+
+              <span
+                className="
+                rounded-xl
+                bg-white/10
+                border
+                border-white/20
+                px-4
+                py-2
+                text-sm
+                "
+              >
+                📚 Ebook Analytics
+              </span>
+
+              <span
+                className="
+                rounded-xl
+                bg-white/10
+                border
+                border-white/20
+                px-4
+                py-2
+                text-sm
+                "
+              >
+                💰 Revenue Tracking
+              </span>
             </div>
           </div>
+        </section>
+
+        {/* STAT CARDS */}
+
+        <div
+          className="
+          mt-8
+          grid
+          grid-cols-2
+          lg:grid-cols-4
+          gap-5
+          "
+        >
+          {stats.map((item, index) => (
+            <div
+              key={index}
+              className="
+                rounded-3xl
+                border
+                bg-white
+                p-5
+                shadow-sm
+                hover:shadow-xl
+                transition
+                duration-300
+                "
+            >
+              <div
+                className={`
+                  w-12
+                  h-12
+                  rounded-2xl
+                  bg-gradient-to-r
+                  ${item.color}
+                  flex
+                  items-center
+                  justify-center
+                  text-white
+                  shadow
+                  `}
+              >
+                {item.icon}
+              </div>
+
+              <h2
+                className="
+                  mt-5
+                  text-3xl
+                  font-bold
+                  text-gray-800
+                  "
+              >
+                {item.value}
+              </h2>
+
+              <p
+                className="
+                  text-gray-500
+                  mt-1
+                  text-sm
+                  "
+              >
+                {item.title}
+              </p>
+            </div>
+          ))}
         </div>
 
-        {/* ANALYTICS */}
-        <AdminOverviewCharts data={overview} />
+        {/* CHART SECTION */}
+
+        <div
+          className="
+          mt-10
+          "
+        >
+          <AdminOverviewCharts
+            data={{
+              ...overview,
+              books,
+              users,
+              transactions,
+            }}
+          />
+        </div>
       </div>
     </div>
   );

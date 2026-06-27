@@ -5,15 +5,16 @@ import Link from "next/link";
 import DashboardNav from "./DashboardNav";
 import Image from "next/image";
 import User from "@/image/user.png";
+import MobileSidebar from "./MobileSidebar";
+import BannerImg from "@/image/book_banner.webp";
+import { getUserSession } from "@/lib/core/session";
 
 export async function DashboardSidebar() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
 
-  const user = session?.user;
-  const role = session?.user?.role;
+  const user = await getUserSession();
+  const role = user?.role;
 
+  console.log(user);
   //  ICONS as STRING (IMPORTANT FIX)
   const NavWriters = [
     { icon: "House", label: "Home", href: "/dashboard/writer" },
@@ -97,28 +98,102 @@ export async function DashboardSidebar() {
   const navItems = menus[role] || NavReaders;
 
   return (
-    <aside className="hidden lg:flex lg:w-72 lg:flex-col lg:border-r lg:bg-background">
-      {/* Header */}
-      <div className="flex items-center gap-2 ml-3">
-        <div className="cursor-pointer h-10 w-10 rounded-full overflow-hidden border shadow-sm">
-          <Image
-            src={user?.image || User}
-            alt="avatar"
-            width={40}
-            height={40}
-            className="object-cover"
-          />
-        </div>
-        <div className="p-5 border-b">
-          <h2 className="text-lg font-bold">Dashboard</h2>
-          <p className="text-xs text-gray-700">{role}</p>
-        </div>
-      </div>
+    <>
+      {/* Desktop Sidebar */}
+      <aside
+        className="
+    hidden
+    lg:flex
+    sm:w-20
+    md:w-48
+    lg:w-64
+    lg:flex-col
+    lg:border-r
+    lg:bg-background
+    "
+      >
+        {/* profile */}
+        <div className="flex items-center gap-3 p-5 border-b">
+          {/* LOGO */}
+          <div
+            className="
+    h-10
+    w-10
+    rounded-full
+    overflow-hidden
+    bg-gradient-to-br
+    from-purple-600
+    via-fuchsia-500
+    to-pink-500
+    p-[2px]
+    shadow-lg
+    "
+          >
+            <div className="h-full w-full rounded-full bg-white overflow-hidden">
+              <Image
+                src={BannerImg}
+                alt="Novara logo"
+                width={48}
+                height={48}
+                className="
+        h-full
+        w-full
+        object-cover
+        scale-125
+        "
+              />
+            </div>
+          </div>
 
-      {/* Navigation */}
-      <div className="p-3">
-        <DashboardNav navItems={navItems} />
-      </div>
-    </aside>
+          {/* NAME */}
+          <div>
+            <h2
+              className="
+      text-3xl
+      font-extrabold
+      bg-gradient-to-r
+      from-purple-500
+      via-fuchsia-400
+      to-pink-400
+      bg-clip-text
+      text-transparent
+      "
+            >
+              Novara
+            </h2>
+
+            <p className="text-xs text-gray-500">Digital Ebook Platform</p>
+          </div>
+        </div>
+
+        <div className="p-3">
+          <DashboardNav navItems={navItems} />
+        </div>
+
+        {/* profile */}
+        <div className=" flex items-center gap-2 p-5 border-t">
+          <div className="h-10 w-10 rounded-full overflow-hidden border">
+            <Link href="/dashboard/reader/my-profile">
+              <Image
+                src={user?.image || User}
+                alt="avatar"
+                width={40}
+                height={40}
+                className="object-cover cursor-pointer"
+              />
+            </Link>
+          </div>
+
+          <div>
+            <h2 className="font-bold">Dashboard</h2>
+
+            <p className="text-xs text-gray-500">{user?.role}</p>
+          </div>
+        </div>
+      </aside>
+
+      {/* Mobile Sidebar */}
+      <MobileSidebar navItems={navItems} user={user} role={role} />
+    </>
   );
 }
