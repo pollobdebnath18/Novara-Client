@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const user = session?.user;
 
-  console.log(pathname);
+  // console.log(pathname);
    if (pathname.startsWith("/dashboard/admin")) {
      return null;
    }

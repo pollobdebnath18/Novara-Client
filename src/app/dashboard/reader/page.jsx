@@ -61,39 +61,39 @@ const ReaderHomePage = async () => {
 
       <section
         className="
-rounded-3xl
-p-8
-bg-gradient-to-r
-from-indigo-600
-via-purple-600
-to-pink-500
-text-white
-flex
-justify-between
-items-center
-"
+  rounded-3xl
+  p-8
+  bg-white
+  border
+  border-gray-200
+  shadow-sm
+  flex
+  justify-between
+  items-center
+  "
       >
         <div>
           <h1
             className="
-    text-3xl
-    md:text-4xl
-    font-extrabold
-    tracking-tight
-    "
+      text-3xl
+      md:text-4xl
+      font-extrabold
+      tracking-tight
+      text-gray-900
+      "
           >
-            Welcome back, {user?.name} 👋
+            Welcome back, {user?.name} 
           </h1>
 
           <p
             className="
-    mt-3
-    text-white/80
-    text-sm
-    md:text-base
-    max-w-xl
-    leading-relaxed
-    "
+      mt-3
+      text-gray-500
+      text-sm
+      md:text-base
+      max-w-xl
+      leading-relaxed
+      "
           >
             Your digital library is ready. Continue reading your purchased
             ebooks, explore saved books, and discover new stories from talented
@@ -102,38 +102,26 @@ items-center
 
           <div
             className="
-    mt-5
-    inline-flex
-    items-center
-    gap-2
-    px-4
-    py-2
-    rounded-full
-    bg-white/20
-    backdrop-blur
-    text-sm
-    "
+      mt-5
+      inline-flex
+      items-center
+      gap-2
+      px-4
+      py-2
+      rounded-full
+      bg-purple-50
+      text-purple-700
+      text-sm
+      font-medium
+      border
+      border-purple-100
+      "
           >
             📚 {purchasedBooks.length} ebooks purchased
           </div>
         </div>
 
-        <div
-          className="
-hidden
-md:flex
-h-20
-w-20
-rounded-full
-bg-white/20
-items-center
-justify-center
-text-3xl
-font-bold
-"
-        >
-          {user?.name?.charAt(0)}
-        </div>
+        
       </section>
 
       {/* Stats */}

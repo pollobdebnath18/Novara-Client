@@ -13,7 +13,7 @@ export async function DashboardSidebar() {
   const user = await getUserSession();
   const role = user?.role;
 
-  console.log(user);
+  // console.log(user);
   //  ICONS as STRING (IMPORTANT FIX)
   const NavWriters = [
     { icon: "House", label: "Home", href: "/dashboard/writer" },
