@@ -10,7 +10,6 @@ import BannerImg from "@/image/book_banner.webp";
 import { getUserSession } from "@/lib/core/session";
 
 export async function DashboardSidebar() {
-
   const user = await getUserSession();
   const role = user?.role;
 
@@ -102,18 +101,21 @@ export async function DashboardSidebar() {
       {/* Desktop Sidebar */}
       <aside
         className="
-    hidden
-    lg:flex
-    sm:w-20
-    md:w-48
-    lg:w-64
-    lg:flex-col
-    lg:border-r
-    lg:bg-background
+  min-h-screen
+  hidden
+  md:flex
+  w-20
+  md:w-48
+  lg:w-64
+  flex-col
+  border-r
+  bg-background
     "
       >
-        {/* profile */}
-        <div className="flex items-center gap-3 p-5 border-b">
+        {/* profile 
+        
+        */}
+        <div className="flex items-center gap-3 p-2.5 border-b">
           {/* LOGO */}
           <div
             className="
@@ -171,9 +173,9 @@ export async function DashboardSidebar() {
         </div>
 
         {/* profile */}
-        <div className=" flex items-center gap-2 p-5 border-t">
+        <div className="mt-48 flex items-center gap-2 p-5 border-t">
           <div className="h-10 w-10 rounded-full overflow-hidden border">
-            <Link href="/dashboard/reader/my-profile">
+            <Link href={`/dashboard/${role.toLowerCase()}/my-profile`}>
               <Image
                 src={user?.image || User}
                 alt="avatar"

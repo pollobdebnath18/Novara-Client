@@ -4,6 +4,7 @@ import { Pagination, Table } from "@heroui/react";
 import Link from "next/link";
 
 export default function BookCard({ book }) {
+  // console.log(book)
   const genreColor = {
     Programming: "bg-indigo-100 text-indigo-700 ring-indigo-200",
     Technology: "bg-blue-100 text-blue-700 ring-blue-200",
@@ -11,7 +12,7 @@ export default function BookCard({ book }) {
     Science: "bg-purple-100 text-purple-700 ring-purple-200",
   };
 
-  const isPurchased = book.status === "sold";
+  const isPurchased = book.isSold === true;
 
   return (
     <>
@@ -149,7 +150,7 @@ export default function BookCard({ book }) {
 
           `}
           >
-           View Details
+            View Details
           </Link>
         </div>
       </div>

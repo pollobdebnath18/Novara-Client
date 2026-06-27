@@ -3,8 +3,8 @@
 import { Pagination } from "@heroui/react";
 import Link from "next/link";
 
-export default function BookPagination({ booksData }) {
-  const { page, totalPages } = booksData;
+export default function BookPagination({ bookData }) {
+  const { page, totalPages } = bookData;
 
   const pages = [];
 

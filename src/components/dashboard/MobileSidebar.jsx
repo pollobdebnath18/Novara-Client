@@ -3,46 +3,50 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import DashboardNav from "./DashboardNav";
+import Image from "next/image";
+import User from "@/image/user.png";
 
 export default function MobileSidebar({ navItems, user, role }) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      {/* Mobile Menu Button */}
+      {/* MOBILE MENU BUTTON */}
       <button
         onClick={() => setOpen(true)}
         className="
-        lg:hidden
+        md:hidden
         fixed
         top-4
         left-4
         z-50
         p-2
-        rounded-lg
+        rounded-xl
         bg-white
-        shadow
+        shadow-md
         border
         "
       >
         <Menu size={24} />
       </button>
 
-      {/* Overlay */}
+      {/* OVERLAY */}
+
       {open && (
         <div
           onClick={() => setOpen(false)}
           className="
-          fixed
-          inset-0
-          bg-black/40
-          z-40
-          lg:hidden
-          "
+            fixed
+            inset-0
+            bg-black/40
+            z-40
+            md:hidden
+            "
         />
       )}
 
-      {/* Sidebar */}
+      {/* MOBILE DRAWER */}
+
       <aside
         className={`
         fixed
@@ -56,18 +60,36 @@ export default function MobileSidebar({ navItems, user, role }) {
         p-5
         transition-transform
         duration-300
+        md:hidden
 
         ${open ? "translate-x-0" : "-translate-x-full"}
 
-        lg:hidden
         `}
       >
-        {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h2 className="font-bold text-xl">Dashboard</h2>
+        {/* HEADER */}
 
-            <p className="text-sm text-gray-500">{role}</p>
+        <div
+          className="
+        flex
+        items-center
+        justify-between
+        mb-8
+        "
+        >
+          <div className="flex items-center gap-3">
+            <Image
+              src={user?.image || User}
+              width={40}
+              height={40}
+              alt="user"
+              className="rounded-full"
+            />
+
+            <div>
+              <h2 className="font-bold">Dashboard</h2>
+
+              <p className="text-xs text-gray-500">{role}</p>
+            </div>
           </div>
 
           <button onClick={() => setOpen(false)}>
@@ -75,7 +97,6 @@ export default function MobileSidebar({ navItems, user, role }) {
           </button>
         </div>
 
-        {/* Menu */}
         <DashboardNav navItems={navItems} />
       </aside>
     </>

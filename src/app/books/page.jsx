@@ -7,7 +7,6 @@ import { getAllBooks, getPurchasedBooksByUser } from "@/lib/api/books";
 import { getUserSession } from "@/lib/core/session";
 import Link from "next/link";
 
-
 export const metadata = {
   title: "Novara-Browse Books",
   description: "Discover the best books, stories, and authors.",
@@ -16,8 +15,8 @@ export const metadata = {
 const BrowseBooks = async ({ searchParams }) => {
   const { search, page, genre, price, status, sort } = await searchParams;
   // console.log(params);
-  const books = await getAllBooks(page, search, genre, price, status, sort);
-  // console.log(books);
+  const booksData = await getAllBooks(page, search, genre, price, status, sort);
+  const books = booksData?.data;
 
   const user = await getUserSession();
 
@@ -28,16 +27,18 @@ const BrowseBooks = async ({ searchParams }) => {
     purchasedBooks = await getPurchasedBooksByUser(user.id);
   }
 
-  const updatedBooks = books.data.map((book) => {
-    const isPurchased = purchasedBooks.some(
-      (purchase) => String(purchase.bookId) === String(book._id),
-    );
+  // const updatedBooks = books.map((book) => {
+  //   const isPurchased = purchasedBooks.some(
+  //     (purchase) => String(purchase.bookId) === String(book._id),
+  //   );
 
-    return {
-      ...book,
-      status: isPurchased ? "sold" : "unsold",
-    };
-  });
+  //   return {
+  //     ...book,
+  //     status: isPurchased ? "sold" : "unsold",
+  //   };
+  // });
+  // console.log("updated books", updatedBooks);
+  // console.log("books :", books);
 
   return (
     <div className="p-6">
@@ -51,7 +52,7 @@ const BrowseBooks = async ({ searchParams }) => {
         </p>
 
         <div className="flex gap-4 text-sm text-gray-400">
-          <span>📚 {books.data.length} Books Available</span>
+          <span>📚 {books.length} Books Available</span>
 
           <span>🔎 Free Preview</span>
 
@@ -78,7 +79,7 @@ const BrowseBooks = async ({ searchParams }) => {
       </div>
 
       {/* BOOK GRID */}
-      {updatedBooks.length === 0 ? (
+      {books.length === 0 ? (
         <div
           className="
     mt-10
@@ -222,13 +223,13 @@ const BrowseBooks = async ({ searchParams }) => {
     gap-5
     "
         >
-          {updatedBooks.map((book) => (
+          {books.map((book) => (
             <BookCard key={book._id} book={book} />
           ))}
         </div>
       )}
       <div className="">
-        <BookPagination booksData={books} />
+        <BookPagination bookData={booksData} />
       </div>
     </div>
   );
