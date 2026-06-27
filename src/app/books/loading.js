@@ -5,7 +5,7 @@ const BookLoading = () => {
        <div className="flex justify-center items-center">
          <h1 className="text-red-700 text-6xl font-bold">
            {" "}
-           .....Good Morning.........
+           .....Good Morning.........  ...
          </h1>
        </div>
      );
