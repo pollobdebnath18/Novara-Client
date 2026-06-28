@@ -109,7 +109,7 @@ Includes:
 - Purchased ebooks
 - Bookmark collection
 - Purchase history
-- Profile
+- Profile(edit)
 
 
 ### Admin Dashboard
