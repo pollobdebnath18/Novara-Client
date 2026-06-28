@@ -8,7 +8,7 @@ const HistoryPage = async () => {
   const purchases = (await getAllPurchasedBooks(user?.id)) || [];
 
   return (
-    <div className="p-6 space-y-8">
+    <div className=" space-y-8 mx-6 my-5">
       {/* HEADER */}
       <div
         className="

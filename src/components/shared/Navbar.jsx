@@ -22,17 +22,17 @@ const Navbar = () => {
   const user = session?.user;
 
   // console.log(pathname);
-   if (pathname.startsWith("/dashboard/admin")) {
-     return null;
-   }
+  if (pathname.startsWith("/dashboard/admin")) {
+    return null;
+  }
 
-   if (pathname.startsWith("/dashboard/writer")) {
-     return null;
-   }
+  if (pathname.startsWith("/dashboard/writer")) {
+    return null;
+  }
 
-   if (pathname.startsWith("/dashboard/reader")) {
-     return null;
-   }
+  if (pathname.startsWith("/dashboard/reader")) {
+    return null;
+  }
 
   const handleLogout = async () => {
     await authClient.signOut();
@@ -66,10 +66,10 @@ const Navbar = () => {
     <nav className="sticky top-0 z-40 w-full border-b bg-white/70 backdrop-blur-xl">
       <header className="flex h-16 items-center justify-between px-6">
         {/* LOGO */}
-          <div className="flex items-center gap-3 p-5 border-b">
-                  {/* LOGO */}
-                  <div
-                    className="
+        <div className="flex items-center gap-3">
+          {/* LOGO */}
+          <div
+            className="
             h-10
             w-10
             rounded-full
@@ -81,27 +81,27 @@ const Navbar = () => {
             p-[2px]
             shadow-lg
             "
-                  >
-                    <div className="h-full w-full rounded-full bg-white overflow-hidden">
-                      <Image
-                        src={BannerImg}
-                        alt="Novara logo"
-                        width={48}
-                        height={48}
-                        className="
+          >
+            <div className="h-full w-full rounded-full bg-white overflow-hidden">
+              <Image
+                src={BannerImg}
+                alt="Novara logo"
+                width={48}
+                height={48}
+                className="
                 h-full
                 w-full
                 object-cover
                 scale-125
                 "
-                      />
-                    </div>
-                  </div>
-        
-                  {/* NAME */}
-                  <div>
-                    <h2
-                      className="
+              />
+            </div>
+          </div>
+
+          {/* NAME */}
+          <div>
+            <h2
+              className="
               text-3xl
               font-extrabold
               bg-gradient-to-r
@@ -111,13 +111,13 @@ const Navbar = () => {
               bg-clip-text
               text-transparent
               "
-                    >
-                      Novara
-                    </h2>
-        
-                    <p className="text-xs text-gray-500">Digital Ebook Platform</p>
-                  </div>
-                </div>
+            >
+              Novara
+            </h2>
+
+            <p className="text-xs text-gray-500">Digital Ebook Platform</p>
+          </div>
+        </div>
 
         {/* DESKTOP MENU */}
 
@@ -163,49 +163,6 @@ const Navbar = () => {
                     className="object-cover"
                   />
                 </div>
-
-                {/* DROPDOWN */}
-                <div
-                  className="
-            absolute -right-20 mt-5 w-52
-            bg-gray-300 border rounded-xl shadow-lg
-            opacity-0 invisible
-            group-hover:opacity-100 group-hover:visible
-            transition-all duration-200
-            z-80
-            overflow-hidden
-            no-underline
-          "
-                >
-                  <div className="py-2 text-sm text-gray-700">
-                    <Link
-                      href="/profile"
-                      className="block px-3 py-1 hover:bg-purple-100 hover:text-purple-600 no-underline"
-                    >
-                      Profile
-                    </Link>
-
-                    <Link
-                      href={
-                        user?.role === "Reader"
-                          ? "/dashboard/reader"
-                          : user?.role === "Writer"
-                            ? "/dashboard/writer"
-                            : "/dashboard/admin"
-                      }
-                      className="block px-3 py-1 hover:bg-purple-100 hover:text-purple-600 no-underline"
-                    >
-                      Dashboard
-                    </Link>
-
-                    <Link
-                      href="/settings"
-                      className="block px-3 py-1 hover:bg-purple-100 hover:text-purple-600 no-underline"
-                    >
-                      Settings
-                    </Link>
-                  </div>
-                </div>
               </div>
 
               {/* SIGN OUT BUTTON */}
@@ -226,10 +183,29 @@ const Navbar = () => {
               </Button>
             </>
           ) : (
-            <>
+            <div className="hidden md:flex gap-3">
               {/* NOT LOGGED IN */}
               <Link href="/auth/signin" className="no-underline">
-                <Button variant="flat">Sign In</Button>
+                <Button
+                  className="
+    px-6
+    py-2.5
+    rounded-xl
+    border
+    border-purple-200
+    bg-white
+    text-purple-700
+    font-semibold
+    shadow-sm
+    hover:bg-purple-50
+    hover:border-purple-400
+    hover:scale-[1.03]
+    transition
+    duration-300
+    "
+                >
+                  Sign In
+                </Button>
               </Link>
 
               <Link href="/auth/signup" className="no-underline">
@@ -248,54 +224,63 @@ const Navbar = () => {
                   Get Started
                 </Button>
               </Link>
-            </>
+            </div>
           )}
         </div>
 
         {/* MOBILE BUTTON */}
-
         <Button
           isIconOnly
           variant="light"
-          className="md:hidden"
+          className="md:hidden rounded-xl hover:bg-purple-50"
           onPress={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? (
+            <X size={26} className="text-purple-600" />
+          ) : (
+            <Menu size={26} className="text-gray-700" />
+          )}
         </Button>
       </header>
 
       {/* MOBILE MENU */}
 
       {isOpen && (
-        <div
-          className="
-        md:hidden
-        border-t
-        bg-white
-        px-6
-        py-5
-      "
-        >
+        <div className="md:hidden border-t bg-white px-6 py-5 shadow-md">
           <ul className="flex flex-col gap-3">
             {navLinks.map((item) => (
-              <li key={item.path}>
+              <li key={item.path} className="w-1/2">
                 <Link
                   href={item.path}
                   onClick={() => setIsOpen(false)}
                   className={`
-        no-underline
-        block
-        px-4
-        py-2
-        rounded-lg
+              block
+              px-4
+              py-2.5
+              rounded-lg
+              text-sm
+              font-medium
+              transition-all
+              duration-300
 
-        ${
-          isActive(item.path)
-            ? "bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 text-white"
-            : "text-gray-700 hover:bg-purple-50"
-        }
-
-        `}
+              ${
+                isActive(item.path)
+                  ? `
+                  bg-purple-100
+                  text-purple-700
+                  border
+                  border-purple-200
+                  `
+                  : `
+                  bg-gray-50
+                  text-gray-700
+                  border
+                  border-gray-100
+                  hover:bg-gray-100
+                  hover:text-purple-600
+                  `
+              }
+            `}
                 >
                   {item.name}
                 </Link>
@@ -303,40 +288,62 @@ const Navbar = () => {
             ))}
 
             {user ? (
-              <>
-                <li>
-                  <Button
-                    onPress={handleLogout}
-                    className="
-      w-full
-      bg-gradient-to-r
-      from-purple-600
-      to-pink-500
-      text-white
-      "
-                  >
-                    Sign Out
-                  </Button>
-                </li>
-              </>
+              <li className="w-1/2">
+                <Button
+                  onPress={handleLogout}
+                  className="
+              w-full
+              py-2.5
+              rounded-lg
+              bg-red-50
+              text-red-600
+              border
+              border-red-200
+              font-medium
+              hover:bg-red-100
+              transition
+            "
+                >
+                  Sign Out
+                </Button>
+              </li>
             ) : (
               <>
-                <li>
+                <li className="w-1/2">
                   <Link href="/auth/signin">
-                    <Button className="w-full">Sign In</Button>
+                    <Button
+                      className="
+                  w-full
+                  py-2.5
+                  rounded-lg
+                  bg-white
+                  text-gray-700
+                  border
+                  border-gray-200
+                  font-medium
+                  hover:bg-gray-50
+                  transition
+                "
+                    >
+                      Sign In
+                    </Button>
                   </Link>
                 </li>
 
-                <li>
+                <li className="w-1/2">
                   <Link href="/auth/signup">
                     <Button
                       className="
-      w-full
-      bg-gradient-to-r
-      from-purple-600
-      to-pink-500
-      text-white
-      "
+                  w-full
+                  py-2.5
+                  rounded-lg
+                  bg-purple-600
+                  text-white
+                  font-medium
+                  shadow-sm
+                  hover:bg-purple-700
+                  transition
+                "
                     >
                       Get Started
                     </Button>

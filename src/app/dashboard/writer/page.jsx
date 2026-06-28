@@ -1,9 +1,11 @@
 import { getUserSession, jwtToken } from "@/lib/core/session";
+import { motion } from "motion/react";
 
 import { getBooksById, getSalesHistory } from "@/lib/api/writers";
 import { getBookmarkedBooksByUser } from "@/lib/api/books";
 
 import WriterStats from "@/components/writer/WriterStats";
+import AnimatedCard from "@/components/writer/AnimatedCard";
 
 const WriterPage = async () => {
   const user = await getUserSession();
@@ -33,53 +35,184 @@ const WriterPage = async () => {
 
       <section
         className="
-        rounded-3xl
-        border
-        bg-gradient-to-r
-        from-purple-50
-        via-white
-        to-pink-50
-        p-8
-        shadow-sm
-        "
+  relative
+  overflow-hidden
+  rounded-3xl
+  border
+  border-purple-100
+  bg-gradient-to-br
+  from-purple-100
+  via-white
+  to-pink-100
+  p-8
+  shadow-sm
+  "
       >
-        <h1
+        {/* background blur */}
+        <div
           className="
-          text-4xl
-          font-bold
-          text-gray-800
-          "
-        >
-          Welcome back, {user.name} 👋
-        </h1>
+    absolute
+    -top-20
+    -right-20
+    h-60
+    w-60
+    rounded-full
+    bg-purple-300
+    opacity-20
+    blur-3xl
+    "
+        />
 
-        <p
+        <div
           className="
-          mt-3
-          text-gray-500
-          max-w-3xl
-          "
-        >
-          Manage your ebook library, track your sales, monitor reader engagement
-          and publish new content from your writer dashboard.
-        </p>
+    absolute
+    -bottom-20
+    -left-20
+    h-60
+    w-60
+    rounded-full
+    bg-pink-300
+    opacity-20
+    blur-3xl
+    "
+        />
+
+        <div className="relative">
+          <div
+            className="
+      inline-flex
+      items-center
+      gap-2
+      rounded-full
+      bg-white/70
+      border
+      border-purple-100
+      px-4
+      py-1.5
+      text-sm
+      text-purple-700
+      font-medium
+      mb-5
+      "
+          >
+            ✨ Writer Dashboard
+          </div>
+
+          <h1
+            className="
+      text-4xl
+      md:text-5xl
+      font-extrabold
+      tracking-tight
+      text-gray-900
+      "
+          >
+            Welcome back,{" "}
+            <span
+              className="
+        bg-gradient-to-r
+        from-purple-600
+        via-fuchsia-500
+        to-pink-500
+        bg-clip-text
+        text-transparent
+        "
+            >
+              {user.name}
+            </span>
+          </h1>
+
+          <p
+            className="
+      mt-4
+      max-w-3xl
+      text-gray-600
+      leading-relaxed
+      text-base
+      md:text-lg
+      "
+          >
+            Manage your ebook library, track your sales, monitor reader
+            engagement, and publish new content from your professional writer
+            dashboard.
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <AnimatedCard>
+              <p className="text-xs text-gray-500">Status</p>
+
+              <p className="font-semibold text-purple-600">Active Writer</p>
+            </AnimatedCard>
+
+            <AnimatedCard>
+              <p className="text-xs text-gray-500">Platform</p>
+
+              <p className="font-semibold text-gray-800">Novara Ebook</p>
+            </AnimatedCard>
+          </div>
+        </div>
       </section>
 
       {/* STATS */}
 
       <section>
-        <div className="mb-5">
-          <h2
-            className="
-            text-2xl
-            font-bold
-            text-gray-800
-            "
-          >
-            Dashboard Overview
-          </h2>
+        <div
+          className="
+  mb-6
+  rounded-2xl
+  border
+  border-purple-100
+  bg-gradient-to-br
+  from-purple-50
+  via-white
+  to-pink-50
+  p-6
+  shadow-sm
+  "
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h2
+                className="
+        text-2xl
+        md:text-3xl
+        font-extrabold
+        text-gray-900
+        tracking-tight
+        "
+              >
+                Dashboard Overview
+              </h2>
 
-          <p className="text-gray-500 mt-1">Your writing performance summary</p>
+              <p
+                className="
+        mt-2
+        text-gray-500
+        text-sm
+        md:text-base
+        "
+              >
+                Track your writing performance, ebook activity, and audience
+                growth.
+              </p>
+            </div>
+
+            <div
+              className="
+      hidden
+      md:flex
+      h-12
+      w-12
+      rounded-xl
+      bg-purple-100
+      items-center
+      justify-center
+      text-2xl
+      "
+            >
+              📊
+            </div>
+          </div>
         </div>
 
         <WriterStats books={books} sales={sales} bookmarks={bookmarks} />

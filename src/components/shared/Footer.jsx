@@ -5,8 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@heroui/react";
 import Logo from "../../image/book_logo.png";
+import BannerImg from "@/image/book_banner.webp";
+
 import { LogoFacebook, LogoGithub } from "@gravity-ui/icons";
 import { usePathname } from "next/navigation";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   const pathname = usePathname();
@@ -30,14 +33,34 @@ const Footer = () => {
           {/* LEFT - LOGO */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full overflow-hidden border border-white/20 shadow-sm">
-                <Image
-                  src={Logo}
-                  alt="logo"
-                  width={40}
-                  height={40}
-                  className="object-cover"
-                />
+              <div
+                className="
+                         h-10
+                         w-10
+                         rounded-full
+                         overflow-hidden
+                         bg-gradient-to-br
+                         from-purple-600
+                         via-fuchsia-500
+                         to-pink-500
+                         p-[2px]
+                         shadow-lg
+                         "
+              >
+                <div className="h-full w-full rounded-full bg-white overflow-hidden">
+                  <Image
+                    src={BannerImg}
+                    alt="Novara logo"
+                    width={48}
+                    height={48}
+                    className="
+                             h-full
+                             w-full
+                             object-cover
+                             scale-125
+                             "
+                  />
+                </div>
               </div>
 
               <h2 className="text-xl font-bold">
@@ -53,9 +76,98 @@ const Footer = () => {
             </p>
 
             {/* SOCIAL ICONS */}
-            <div className="flex gap-3 mt-5 text-gray-400">
-              <LogoFacebook className="w-5 h-5 cursor-pointer hover:text-purple-400 transition" />
-              <LogoGithub className="w-5 h-5 cursor-pointer hover:text-purple-400 transition" />
+            <div className="flex gap-4 mt-5">
+              {/* Facebook */}
+              <a
+                href="#"
+                className="
+    w-7
+    h-7
+    rounded-full
+    flex
+    items-center
+    justify-center
+    bg-blue-50
+    text-blue-600
+    hover:bg-blue-600
+    hover:text-white
+    hover:-translate-y-1
+    transition
+    duration-300
+    shadow-sm
+    "
+              >
+                <FaFacebookF size={18} />
+              </a>
+
+              {/* Instagram */}
+              <a
+                href="#"
+                className="
+    w-7
+    h-7
+    rounded-full
+    flex
+    items-center
+    justify-center
+    bg-pink-50
+    text-pink-500
+    hover:bg-pink-500
+    hover:text-white
+    hover:-translate-y-1
+    transition
+    duration-300
+    shadow-sm
+    "
+              >
+                <FaInstagram size={18} />
+              </a>
+
+              {/* Twitter */}
+              <a
+                href="#"
+                className="
+    w-7
+    h-7
+    rounded-full
+    flex
+    items-center
+    justify-center
+    bg-sky-50
+    text-sky-500
+    hover:bg-sky-500
+    hover:text-white
+    hover:-translate-y-1
+    transition
+    duration-300
+    shadow-sm
+    "
+              >
+                <FaTwitter size={18} />
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="#"
+                className="
+    w-7
+    h-7
+    rounded-full
+    flex
+    items-center
+    justify-center
+    bg-gray-50
+    text-blue-700
+    hover:bg-blue-700
+    hover:text-white
+    hover:-translate-y-1
+    transition
+    duration-300
+    shadow-sm
+    "
+              >
+                <FaLinkedinIn size={18} />
+              </a>
             </div>
           </div>
 
@@ -66,7 +178,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-gray-400">
               {[
                 { name: "Home", path: "/" },
-                { name: "Browse Ebooks", path: "/ebooks" },
+                { name: "Browse Ebooks", path: "/books" },
                 { name: "About", path: "/about" },
                 { name: "Contact", path: "/contact" },
                 { name: "Privacy Policy", path: "/privacy" },
@@ -120,7 +232,7 @@ const Footer = () => {
           <p>© {new Date().getFullYear()} Novara. All rights reserved.</p>
 
           <p className="mt-2 md:mt-0 text-gray-400">
-            Built with ❤️ for ebook lovers
+            A modern platform for discovering and sharing ebooks.
           </p>
         </div>
       </div>

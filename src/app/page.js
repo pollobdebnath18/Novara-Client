@@ -9,7 +9,7 @@ import { getFeaturedBooks } from "@/lib/api/books";
 export  default async function Home() {
 const books = await getFeaturedBooks();  
 return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto space-y-16">
       <Banner></Banner>
       <Featured books={books}></Featured>
       <PopularWriters></PopularWriters>

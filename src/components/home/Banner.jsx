@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 
 import BannerImg from "../../image/book_banner.webp";
+import StatsCounter from "../shared/StatsCounter";
 
 const Banner = () => {
   return (
@@ -13,7 +14,7 @@ const Banner = () => {
       className="
       relative
       overflow-hidden
-      min-h-[650px]
+      min-h-[600px]
       flex
       items-center
       bg-gradient-to-br
@@ -62,7 +63,7 @@ const Banner = () => {
         pt-4
         grid
         lg:grid-cols-2
-        gap-16
+        gap-12
         items-center
         "
       >
@@ -97,7 +98,7 @@ const Banner = () => {
           </span>
           <h1
             className="
-          mt-6
+          mt-3
           text-5xl
           md:text-7xl
           font-black
@@ -124,7 +125,7 @@ const Banner = () => {
 
           <p
             className="
-          mt-7
+          mt-5
           text-lg
           md:text-xl
           text-gray-600
@@ -137,7 +138,7 @@ const Banner = () => {
           </p>
           <div
             className="
-          mt-9
+          mt-7
           flex
           gap-5
           "
@@ -162,7 +163,8 @@ const Banner = () => {
             </Link>
           </div>
           {/* stats */}
-          <div
+          <StatsCounter />
+          {/* <div
             className="
           mt-12
           flex
@@ -183,7 +185,7 @@ const Banner = () => {
               <h3 className="text-3xl font-black">50K+</h3>
               <p className="text-gray-500">Readers</p>
             </div>
-          </div>
+          </div> */}
         </motion.div>
 
         {/* RIGHT IMAGE */}
@@ -230,7 +232,7 @@ const Banner = () => {
           >
             <p className="text-sm text-gray-500">Total Books</p>
 
-            <h3 className="text-xl font-bold">10,000+</h3>
+            <h3 className="text-xl font-bold">300+</h3>
           </motion.div>
 
           {/* floating card 2 */}
@@ -257,7 +259,7 @@ const Banner = () => {
           >
             <p className="text-sm text-gray-500">Active Writers</p>
 
-            <h3 className="text-xl font-bold">5,000+</h3>
+            <h3 className="text-xl font-bold">15+</h3>
           </motion.div>
 
           {/* image card */}

@@ -32,7 +32,10 @@ const WritersManageBooks = async () => {
               by publishing your first ebook.
             </p>
 
-            <Link href='/dashboard/writer/add-book' className="mt-6 px-6 py-2 bg-black text-white rounded-xl">
+            <Link
+              href="/dashboard/writer/add-book"
+              className="mt-6 px-6 py-2 bg-black text-white rounded-xl"
+            >
               Create Your First Ebook
             </Link>
           </div>
@@ -42,33 +45,189 @@ const WritersManageBooks = async () => {
           <>
             {/* HEADER */}
 
-            <div className="flex justify-between items-center">
-              <div>
-                <h1 className="text-3xl font-bold">Manage Ebooks</h1>
+            <div
+              className="
+  mb-6
+  rounded-2xl
+  border
+  border-purple-100
+  bg-gradient-to-br
+  from-purple-50
+  via-white
+  to-pink-50
+  p-6
+  shadow-sm
+  "
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1
+                    className="
+        text-3xl
+        md:text-4xl
+        font-extrabold
+        tracking-tight
+        text-gray-900
+        "
+                  >
+                    Manage Ebooks
+                  </h1>
 
-                <p className="text-gray-500 mt-2 max-w-xl">
-                  View and manage all your ebooks. Edit book details, update
-                  publishing status, and control your ebook collection from
-                  here.
-                </p>
+                  <p
+                    className="
+        mt-3
+        text-gray-500
+        max-w-xl
+        leading-relaxed
+        "
+                  >
+                    View and manage your ebook collection. Update book details,
+                    control publishing status, and keep your digital library
+                    organized.
+                  </p>
+                </div>
+
+                <div
+                  className="
+      hidden
+      md:flex
+      h-14
+      w-14
+      rounded-2xl
+      bg-purple-100
+      items-center
+      justify-center
+      text-3xl
+      "
+                >
+                  📚
+                </div>
               </div>
             </div>
 
-            {/* PART 1: STATS */}
+            {/* STATS */}
             <div className="grid md:grid-cols-3 gap-5">
-              <div className="rounded-xl border p-5">
-                <p className="text-sm text-gray-500">Total Ebooks</p>
-                <h2 className="text-3xl font-bold mt-2">{totalBooks}</h2>
+              {/* Total */}
+              <div
+                className="
+    group
+    rounded-2xl
+    border
+    bg-white
+    p-6
+    shadow-sm
+    hover:shadow-lg
+    hover:-translate-y-1
+    transition-all
+    duration-300
+    "
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-500">Total Ebooks</p>
+
+                    <h2 className="text-4xl font-black text-gray-900 mt-3">
+                      {totalBooks}
+                    </h2>
+                  </div>
+
+                  <div
+                    className="
+        h-12
+        w-12
+        rounded-xl
+        bg-purple-100
+        flex
+        items-center
+        justify-center
+        text-2xl
+        "
+                  >
+                    📚
+                  </div>
+                </div>
               </div>
 
-              <div className="rounded-xl border p-5">
-                <p className="text-sm text-gray-500">Published</p>
-                <h2 className="text-3xl font-bold mt-2">{publishedBooks}</h2>
+              {/* Published */}
+              <div
+                className="
+    group
+    rounded-2xl
+    border
+    bg-white
+    p-6
+    shadow-sm
+    hover:shadow-lg
+    hover:-translate-y-1
+    transition-all
+    duration-300
+    "
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-500">Published</p>
+
+                    <h2 className="text-4xl font-black text-gray-900 mt-3">
+                      {publishedBooks}
+                    </h2>
+                  </div>
+
+                  <div
+                    className="
+        h-12
+        w-12
+        rounded-xl
+        bg-green-100
+        flex
+        items-center
+        justify-center
+        text-2xl
+        "
+                  >
+                    ✅
+                  </div>
+                </div>
               </div>
 
-              <div className="rounded-xl border p-5">
-                <p className="text-sm text-gray-500">Unpublished</p>
-                <h2 className="text-3xl font-bold mt-2">{unpublishedBooks}</h2>
+              {/* Unpublished */}
+              <div
+                className="
+    group
+    rounded-2xl
+    border
+    bg-white
+    p-6
+    shadow-sm
+    hover:shadow-lg
+    hover:-translate-y-1
+    transition-all
+    duration-300
+    "
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-500">Unpublished</p>
+
+                    <h2 className="text-4xl font-black text-gray-900 mt-3">
+                      {unpublishedBooks}
+                    </h2>
+                  </div>
+
+                  <div
+                    className="
+        h-12
+        w-12
+        rounded-xl
+        bg-orange-100
+        flex
+        items-center
+        justify-center
+        text-2xl
+        "
+                  >
+                    📝
+                  </div>
+                </div>
               </div>
             </div>
 

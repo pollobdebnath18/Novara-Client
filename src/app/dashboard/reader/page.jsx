@@ -56,7 +56,7 @@ const ReaderHomePage = async () => {
   ];
 
   return (
-    <div className="space-y-8 mx-4">
+    <div className="space-y-8 mx-6 my-5">
       {/* Welcome */}
 
       <section

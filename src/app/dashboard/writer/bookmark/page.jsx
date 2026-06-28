@@ -14,12 +14,45 @@ const BookMarkedBook = async () => {
       <div className="max-w-6xl mx-auto">
         {/* HEADER */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2">
-            <Bookmark className="text-purple-600" />
-            My Bookmarked Books
-          </h1>
+          <div className="flex items-center gap-3">
+            <div
+              className="
+      h-11
+      w-11
+      rounded-xl
+      bg-purple-50
+      flex
+      items-center
+      justify-center
+      "
+            >
+              <Bookmark className="text-purple-600 w-6 h-6" />
+            </div>
 
-          <p className="text-gray-500 mt-2">Your saved ebooks collection.</p>
+            <div>
+              <h1
+                className="
+        text-3xl
+        font-bold
+        text-gray-800
+        "
+              >
+                My Bookmarked Books
+              </h1>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Your personal collection of saved ebooks.
+              </p>
+            </div>
+          </div>
+
+          <div
+            className="
+    mt-5
+    h-px
+    bg-gray-200
+    "
+          />
         </div>
 
         {bookmarkedBooks.length === 0 ? (

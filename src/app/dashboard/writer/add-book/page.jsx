@@ -168,11 +168,11 @@ const WriterAddBookPage = () => {
         </div>
 
         {/* IMAGE UPLOAD */}
-        <div>
+        <div className="">
           <Label>Cover Image</Label>
 
           {/* MODE SWITCH */}
-          <div className="flex gap-3 mt-2 mb-3">
+          <div className="flex gap-3 mt-2 mb-3 ">
             <button
               type="file"
               onClick={() => setMode("upload")}
