@@ -12,7 +12,7 @@ export default function BookCard({ book }) {
     Science: "bg-purple-100 text-purple-700 ring-purple-200",
   };
 
-  const isPurchased = book.isSold === true;
+  const isPurchased = book.isPurchased === true;
 
   return (
     <>

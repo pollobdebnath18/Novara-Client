@@ -66,21 +66,22 @@ const FilterFunctionality = () => {
         <option value="600-1000">600 - 1000৳</option>
       </select>
       {/* Availability */}
+      {/* Availability */}
       <select
         onChange={(e) => handleFilter("status", e.target.value)}
         className="
-        px-4
-        py-2
-        rounded-xl
-        border
-        bg-white
-        "
+  px-4
+  py-2
+  rounded-xl
+  border
+  bg-white
+  "
       >
         <option value="">All Availability</option>
 
-        <option value="unsold">In Stock</option>
+        <option value="available">Available</option>
 
-        <option value="sold">Sold</option>
+        <option value="purchased">My Purchased Books</option>
       </select>
     </div>
   );

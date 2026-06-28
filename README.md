@@ -5,226 +5,130 @@
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-brightgreen)
 ![Stripe](https://img.shields.io/badge/Payment-Stripe-purple)
 
-## 🌐 Live Website
+A modern full-stack ebook platform where readers can discover, purchase, and manage ebooks while writers can publish and track their content through dedicated dashboards.
 
-🔗 https://novara-client.vercel.app
-
-
-## 📖 Project Overview
-
-Novara is a full-stack ebook sharing platform that connects readers, writers, and administrators in one digital ecosystem.
-
-Readers can explore ebooks, search, filter, purchase, bookmark, and manage their digital library. Writers can upload, manage, and track their ebook sales. Admins can manage users, ebooks, transactions, and platform analytics.
-
-This project demonstrates real-world full-stack development concepts including authentication, role-based authorization, CRUD operations, payment integration, image upload, pagination, filtering, and analytics dashboard.
+🌐 Live Demo: https://novara-client.vercel.app
 
 
 ---
 
-# ✨ Key Features
+## ✨ Features
 
-
-## 🔐 Authentication
-
-- Email & Password Authentication
-- Google Login
-- JWT Authentication
+### 🔐 Authentication & Authorization
+- Email/password authentication
+- Google OAuth login
+- JWT based authentication
 - Secure session handling
-- Role based access system
+- Role-based access control
 
 Roles:
-
 - Reader
 - Writer
 - Admin
 
 
----
+### 📚 Ebook Management
 
-# 🏠 Home Page
+Readers can:
 
-Features:
-
-- Modern hero section
-- Featured ebooks
-- Top writers section
-- Ebook genres showcase
-- Responsive design
-- Smooth animations
-
-
----
-
-# 📚 Browse Ebook Page
-
-Users can browse ebooks without login.
-
-Features:
-
-### Search
-
-- Search by ebook title
-- Search by writer name
+- Browse ebooks
+- Search by title and writer
+- Filter by genre, price, and availability
+- Sort ebooks
+- View ebook details
+- Bookmark books
+- Purchase ebooks
+- Manage purchased library
 
 
-### Filtering
+Writers can:
 
-- Filter by genre
-- Filter by price range
-- Filter by availability
-
-
-### Sorting
-
-- Newest ebooks
-- Price low to high
-- Price high to low
+- Add ebooks
+- Upload cover images
+- Edit and delete ebooks
+- Publish/unpublish books
+- View sales history
+- Track performance
 
 
-### Pagination
+Admins can:
 
-- Page navigation
-- Previous / Next button
-- Backend pagination
+- Manage users
+- Manage all ebooks
+- Monitor transactions
+- View platform analytics
 
 
 ---
 
-# 📖 Ebook Details Page
+## 💳 Payment Integration
 
-Displays:
+Integrated with **Stripe Checkout**
 
-- Ebook cover
-- Title
-- Writer information
-- Description
-- Genre
-- Price
-- Upload date
-- Availability status
+Payment flow:
 
-
-Actions:
-
-- Purchase ebook
-- Bookmark ebook
-- View writer profile
-
-
-Payment Process:
-
-1. User selects ebook
-2. Stripe checkout opens
-3. Payment completed
-4. Purchase record saved
-5. User gets ebook access
+```
+Select Ebook
+      ↓
+Stripe Checkout
+      ↓
+Payment Verification
+      ↓
+Purchase Saved
+      ↓
+User Gets Access
+```
 
 
 ---
 
-# 👨‍💻 Writer Dashboard
+## 📊 Dashboard System
 
-Route:
+### Writer Dashboard
 
 ```
 /dashboard/writer
 ```
 
+Includes:
 
-Features:
-
-- Writer profile
-- Add ebook
-- Edit ebook
-- Delete ebook
-- Publish/unpublish ebook
-- Manage uploaded books
-- Sales history
+- Profile management
+- Ebook management
+- Sales tracking
 - Statistics
 
 
----
-
-# 👤 Reader Dashboard
-
-Route:
+### Reader Dashboard
 
 ```
-/dashboard/user
+/dashboard/reader
 ```
 
+Includes:
 
-Features:
-
-- User profile
-- Purchase history
 - Purchased ebooks
 - Bookmark collection
+- Purchase history
+- Profile
 
 
----
-
-# 🛡️ Admin Dashboard
-
-Route:
+### Admin Dashboard
 
 ```
 /dashboard/admin
 ```
 
+Includes:
 
-Features:
-
-
-### Manage Users
-
-- View users
-- Change roles
-- Delete users
-
-
-### Manage Ebooks
-
-- View all ebooks
-- Publish/unpublish
-- Delete ebooks
-
-
-### Manage Transactions
-
-- View payments
-- Track revenue
-
-
-### Analytics
-
-- Total users
-- Total writers
-- Total ebooks sold
-- Total revenue
-- Sales charts
-- Genre charts
+- User management
+- Ebook control
+- Revenue tracking
+- Analytics charts
 
 
 ---
 
-# 💳 Payment System
-
-Payment integration:
-
-**Stripe**
-
-Features:
-
-- Secure checkout
-- Payment verification
-- Transaction history
-- Purchase management
-
-
----
-
-# 🖼️ Image Upload
+## 🖼️ Image Upload
 
 Service:
 
@@ -232,28 +136,27 @@ Service:
 
 Used for:
 
-- Ebook cover images
-- Profile images
+- Ebook covers
+- User profile images
 
 
 ---
 
-# ⚡ UI Features
+## ⚡ UI Highlights
 
-- Fully responsive
-- Mobile friendly
-- Modern UI design
-- Loading spinner
-- Skeleton loader
-- Error handling
-- Custom 404 page
+- Fully responsive design
+- Modern dashboard UI
+- Mobile friendly navigation
+- Loading states
+- Skeleton loaders
 - Toast notifications
+- Error handling
 - Smooth animations
 
 
 ---
 
-# 🛠️ Technologies Used
+# 🛠️ Tech Stack
 
 
 ## Frontend
@@ -295,63 +198,10 @@ Used for:
 
 ---
 
-# 📦 Packages
+# 📦 Installation
 
 
-Frontend:
-
-```bash
-next
-react
-tailwindcss
-framer-motion
-@heroui/react
-lucide-react
-jsonwebtoken
-```
-
-
-Backend:
-
-```bash
-express
-mongodb
-cors
-dotenv
-jsonwebtoken
-stripe
-```
-
-
----
-
-# 🔐 Environment Variables
-
-
-Frontend:
-
-```env
-NEXT_PUBLIC_API_URL=
-NEXT_PUBLIC_IMGBB_KEY=
-```
-
-
-Backend:
-
-```env
-MONGODB_URI=
-JWT_SECRET=
-STRIPE_SECRET_KEY=
-CLIENT_URL=
-```
-
-
----
-
-# 🚀 Installation
-
-
-## Frontend Setup
+## Frontend
 
 ```bash
 git clone client-repository-url
@@ -364,7 +214,7 @@ npm run dev
 ```
 
 
-## Backend Setup
+## Backend
 
 ```bash
 git clone server-repository-url
@@ -379,29 +229,33 @@ npm start
 
 ---
 
-# 🔑 Admin Login
+# 🔐 Environment Variables
 
 
-Email:
+### Frontend
 
+```env
+NEXT_PUBLIC_API_URL=
+NEXT_PUBLIC_IMGBB_KEY=
 ```
-admin@fable.com
-```
 
 
-Password:
+### Backend
 
-```
-Admin@123
+```env
+MONGODB_URI=
+JWT_SECRET=
+STRIPE_SECRET_KEY=
+CLIENT_URL=
 ```
 
 
 ---
 
-# 📂 Folder Structure
+# 📂 Project Structure
 
 
-Frontend:
+Frontend
 
 ```
 src
@@ -414,7 +268,7 @@ src
 ```
 
 
-Backend:
+Backend
 
 ```
 server
@@ -433,11 +287,11 @@ server
 - Wishlist system
 - Email notifications
 - Dark mode
-- Personalized recommendations
+- AI based recommendations
 
 
 ---
 
 # 👨‍💻 Developer
 
-Developed as a full-stack ebook sharing platform using modern web technologies.
+Developed as a full-stack ebook marketplace platform using modern web technologies.

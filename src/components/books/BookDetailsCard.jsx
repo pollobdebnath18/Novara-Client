@@ -16,11 +16,13 @@ import {
   removeBookMark,
 } from "@/lib/actions/reader";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function BookDetailsCard({ book, currentUser, isPurchased }) {
   const [loading, setLoading] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const purchased = isPurchased;
+  const router = useRouter();
   console.log(book);
 
   useEffect(() => {
@@ -437,7 +439,7 @@ export default function BookDetailsCard({ book, currentUser, isPurchased }) {
             // onPress={handleBuy}
             type="submit"
             isLoading={loading}
-            isDisabled={purchased || isOwner}
+            isDisabled={purchased || isOwner || !currentUser}
             startContent={!loading && <ShoppingCart size={18} />}
             className={`
             w-full

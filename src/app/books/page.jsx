@@ -26,6 +26,22 @@ const BrowseBooks = async ({ searchParams }) => {
   if (user?.id) {
     purchasedBooks = await getPurchasedBooksByUser(user.id);
   }
+  const purchasedBookIds = new Set(
+    purchasedBooks.map((item) => String(item.bookId)),
+  );
+
+  let updatedBooks = books.map((book) => ({
+    ...book,
+    isPurchased: purchasedBookIds.has(String(book._id)),
+  }));
+
+  if (status === "purchased") {
+    updatedBooks = updatedBooks.filter((book) => book.isPurchased);
+  }
+
+  if (status === "available") {
+    updatedBooks = updatedBooks.filter((book) => !book.isPurchased);
+  }
 
   // const updatedBooks = books.map((book) => {
   //   const isPurchased = purchasedBooks.some(
@@ -34,7 +50,7 @@ const BrowseBooks = async ({ searchParams }) => {
 
   //   return {
   //     ...book,
-  //     status: isPurchased ? "sold" : "unsold",
+  //     isPurchased,
   //   };
   // });
   // console.log("updated books", updatedBooks);
@@ -52,7 +68,7 @@ const BrowseBooks = async ({ searchParams }) => {
         </p>
 
         <div className="flex gap-4 text-sm text-gray-400">
-          <span>📚 {books.length} Books Available</span>
+          <span>📚 {updatedBooks.length} Books Available</span>
 
           <span>🔎 Free Preview</span>
 
@@ -79,7 +95,7 @@ const BrowseBooks = async ({ searchParams }) => {
       </div>
 
       {/* BOOK GRID */}
-      {books.length === 0 ? (
+      {updatedBooks.length === 0 ? (
         <div
           className="
     mt-10
@@ -223,7 +239,7 @@ const BrowseBooks = async ({ searchParams }) => {
     gap-5
     "
         >
-          {books.map((book) => (
+          {updatedBooks.map((book) => (
             <BookCard key={book._id} book={book} />
           ))}
         </div>
