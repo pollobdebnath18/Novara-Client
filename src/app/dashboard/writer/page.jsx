@@ -44,7 +44,7 @@ const WriterPage = async () => {
   from-purple-100
   via-white
   to-pink-100
-  p-8
+  py-8 px-4 md:mx-6 lg:px-8
   shadow-sm
   "
       >

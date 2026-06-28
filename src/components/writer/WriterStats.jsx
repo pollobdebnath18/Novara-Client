@@ -62,6 +62,7 @@ export default function WriterStats({
   const Card = ({ card }) => (
     <div
       className="
+      text-center
       bg-white
       border
       rounded-3xl
@@ -78,6 +79,7 @@ export default function WriterStats({
         h-14
         rounded-2xl
         flex
+        mx-auto
         items-center
         justify-center
         text-white

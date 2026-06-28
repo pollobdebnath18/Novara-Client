@@ -6,13 +6,13 @@ import User from "@/image/user.png";
 import { getBooksById } from "@/lib/api/writers";
 import { Table } from "@heroui/react";
 import { BookX } from "lucide-react";
+import EditProfileModal from "@/components/shared/profile/EditProfileModal";
+import { getUserSession } from "@/lib/core/session";
 
 const ProfilePage = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
-  });
-
-  const user = session?.user;
+ 
+  const user = await getUserSession();
+  // console.log(user , 'writer profile page');
 
   const books = await getBooksById(user?.id);
   //   console.log(books);
@@ -85,7 +85,7 @@ const ProfilePage = async () => {
 
           {/* ACTIONS */}
           <div className="mt-8 flex gap-3">
-            <button
+            {/* <button
               className="
             px-4 py-2 rounded-lg
             bg-purple-600 text-white
@@ -94,7 +94,8 @@ const ProfilePage = async () => {
           "
             >
               Edit Profile
-            </button>
+            </button> */}
+            <EditProfileModal user={user} />
 
             <button
               className="

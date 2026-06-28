@@ -33,16 +33,17 @@ export default async function AdminManageUsersPage() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 p-4 md:p-6">
       {/* HEADER */}
       {/* HEADER */}
+
       <div
         className="
   rounded-3xl
-  bg-gradient-to-r
-  from-indigo-600
-  via-purple-600
-  to-pink-500
+  bg-gradient-to-br
+  from-slate-900
+  via-slate-800
+  to-blue-900
   text-white
   p-8
   shadow-xl
@@ -50,12 +51,54 @@ export default async function AdminManageUsersPage() {
   overflow-hidden
   "
       >
+        {/* Glow */}
+
+        <div
+          className="
+    absolute
+    -right-20
+    -top-20
+    w-72
+    h-72
+    rounded-full
+    bg-blue-500/20
+    blur-3xl
+    "
+        />
+
+        <div
+          className="
+    absolute
+    -left-20
+    -bottom-20
+    w-72
+    h-72
+    rounded-full
+    bg-cyan-400/10
+    blur-3xl
+    "
+        />
+
         <div className="relative z-10">
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-            Manage Users 👥
+          <h1
+            className="
+      text-3xl
+      md:text-4xl
+      font-extrabold
+      tracking-tight
+      "
+          >
+            Manage Users 
           </h1>
 
-          <p className="mt-3 text-white/80 max-w-xl">
+          <p
+            className="
+      mt-3
+      text-gray-300
+      max-w-xl
+      leading-relaxed
+      "
+          >
             Manage user accounts, assign roles, control permissions, and
             maintain platform access securely.
           </p>
@@ -69,9 +112,12 @@ export default async function AdminManageUsersPage() {
       px-4
       py-2
       rounded-full
-      bg-white/20
-      backdrop-blur
+      bg-white/10
+      border
+      border-white/20
+      backdrop-blur-md
       text-sm
+      text-gray-200
       "
           >
             🔐 User & Role Management
@@ -81,12 +127,12 @@ export default async function AdminManageUsersPage() {
         <div
           className="
     absolute
-    -right-10
-    -bottom-10
-    w-40
-    h-40
+    right-10
+    bottom-10
+    w-24
+    h-24
     rounded-full
-    bg-white/10
+    bg-white/5
     "
         />
       </div>

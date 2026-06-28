@@ -79,7 +79,7 @@ const Footer = () => {
             <div className="flex gap-4 mt-5">
               {/* Facebook */}
               <a
-                href="#"
+                href="https://www.facebook.com"
                 className="
     w-7
     h-7
@@ -102,7 +102,7 @@ const Footer = () => {
 
               {/* Instagram */}
               <a
-                href="#"
+                href="https://www.instagram.com"
                 className="
     w-7
     h-7
@@ -125,7 +125,7 @@ const Footer = () => {
 
               {/* Twitter */}
               <a
-                href="#"
+                href="https://www.twitter.com"
                 className="
     w-7
     h-7
@@ -148,7 +148,7 @@ const Footer = () => {
 
               {/* LinkedIn */}
               <a
-                href="#"
+                href="https://www.linkedin.com"
                 className="
     w-7
     h-7

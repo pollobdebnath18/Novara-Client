@@ -26,6 +26,7 @@ import { uploadToImgBB } from "@/lib/actions/imgUpload";
 const WriterAddBookPage = () => {
   const [imageFile, setImageFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
+  const [imageError, setImageError] = useState(false);
   const [mode, setMode] = useState("upload");
   const [loading, setLoading] = useState(false);
   const [genre, setGenre] = useState("");
@@ -44,6 +45,11 @@ const WriterAddBookPage = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (!imageFile && !imageUrl) {
+      setImageError(true);
+      return;
+    }
 
     setLoading(true);
 
@@ -206,8 +212,10 @@ const WriterAddBookPage = () => {
                 hidden
                 onChange={(e) => {
                   const file = e.target.files[0];
+
                   setImageFile(file);
-                  setImageUrl(""); // clear URL
+                  setImageUrl("");
+                  setImageError(false);
                 }}
               />
             </label>
@@ -224,7 +232,8 @@ const WriterAddBookPage = () => {
                 value={imageUrl}
                 onChange={(e) => {
                   setImageUrl(e.target.value);
-                  setImageFile(null); // clear file
+                  setImageFile(null);
+                  setImageError(false);
                 }}
                 className="w-full pl-10 pr-3 py-2 border rounded-xl focus:outline-none"
               />
@@ -237,6 +246,13 @@ const WriterAddBookPage = () => {
               <FaImage />
               <span>{imageFile ? imageFile.name : imageUrl}</span>
             </div>
+          )}
+
+          {imageError && (
+            <p className="mt-2 text-sm text-red-500">
+              Cover image is required. Please upload an image or add an image
+              URL.
+            </p>
           )}
         </div>
 

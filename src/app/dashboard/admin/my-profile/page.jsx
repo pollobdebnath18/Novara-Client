@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth"; // server-side auth
 import { headers } from "next/headers";
 import User from "@/image/user.png";
 import { getUserSession } from "@/lib/core/session";
+import EditProfileModal from "@/components/shared/profile/EditProfileModal";
 
 const MyProfilePage = async () => {
 
@@ -75,7 +76,7 @@ const MyProfilePage = async () => {
 
         {/* ACTIONS */}
         <div className="mt-8 flex gap-3">
-          <button
+          {/* <button
             className="
             px-4 py-2 rounded-lg
             bg-purple-600 text-white
@@ -84,7 +85,8 @@ const MyProfilePage = async () => {
           "
           >
             Edit Profile
-          </button>
+          </button> */}
+          <EditProfileModal user={user} />
 
           <button
             className="

@@ -7,24 +7,20 @@ import { updateProfile } from "@/lib/actions/profile";
 
 export default function EditProfileModal({ user }) {
   const id = user?.id;
-  // console.log(id);
   const [open, setOpen] = useState(false);
 
   const [form, setForm] = useState({
-    name: user.name || "",
-    email: user.email || "",
-    role: user.role || "Reader",
-    image: user.image || "",
+    name: user?.name || "",
+    email: user?.email || "",
+    role: user?.role || "Reader",
+    image: user?.image || "",
   });
 
   const handleUpdate = async () => {
     const res = await updateProfile(id, form, "PATCH");
 
-   
-
-
     if (res.success) {
-     window.location.reload();
+      window.location.reload();
     }
   };
 
@@ -73,7 +69,7 @@ export default function EditProfileModal({ user }) {
     "
               >
                 <Image
-                  src={user.image || User}
+                  src={user?.image || user?.user?.image || User}
                   alt="profile"
                   width={80}
                   height={80}

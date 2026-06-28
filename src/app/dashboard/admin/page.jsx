@@ -81,69 +81,65 @@ export default async function AdminHomePage() {
 
         <section
           className="
-          relative
-          overflow-hidden
-          rounded-3xl
-          bg-gradient-to-br
-          from-slate-950
-          via-purple-900
-          to-pink-700
-          p-7
-          md:p-10
-          text-white
-          shadow-xl
-          "
+  relative
+  overflow-hidden
+  rounded-3xl
+  bg-gradient-to-br
+  from-slate-900
+  via-slate-800
+  to-blue-900
+  p-7
+  md:p-10
+  text-white
+  shadow-xl
+  "
         >
-          {/* Glow */}
+          {/* Soft Glow */}
 
           <div
             className="
-            absolute
-            -top-20
-            -right-20
-            w-72
-            h-72
-            rounded-full
-            bg-purple-400/30
-            blur-3xl
-            "
+    absolute
+    -top-24
+    -right-24
+    w-80
+    h-80
+    rounded-full
+    bg-blue-500/20
+    blur-3xl
+    "
           />
 
           <div
             className="
-            absolute
-            -bottom-20
-            -left-20
-            w-72
-            h-72
-            rounded-full
-            bg-pink-400/20
-            blur-3xl
-            "
+    absolute
+    -bottom-24
+    -left-24
+    w-80
+    h-80
+    rounded-full
+    bg-cyan-400/10
+    blur-3xl
+    "
           />
 
-          <div
-            className="
-            relative
-            z-10
-            "
-          >
+          <div className="relative z-10">
             {/* Badge */}
 
             <div
               className="
-              inline-flex
-              items-center
-              gap-2
-              px-4
-              py-2
-              rounded-full
-              bg-white/10
-              border
-              border-white/20
-              backdrop-blur
-              text-sm
-              "
+      inline-flex
+      items-center
+      gap-2
+      px-4
+      py-2
+      rounded-full
+      bg-white/10
+      border
+      border-white/20
+      backdrop-blur-md
+      text-sm
+      text-gray-200
+      "
             >
               <ShieldCheck size={16} />
               Admin Control Panel
@@ -151,25 +147,25 @@ export default async function AdminHomePage() {
 
             <h1
               className="
-              mt-6
-              text-4xl
-              md:text-6xl
-              font-extrabold
-              tracking-tight
-              "
+      mt-6
+      text-4xl
+      md:text-6xl
+      font-extrabold
+      tracking-tight
+      "
             >
               Admin Dashboard
             </h1>
 
             <p
               className="
-              mt-4
-              max-w-2xl
-              text-white/70
-              text-base
-              md:text-lg
-              leading-relaxed
-              "
+      mt-4
+      max-w-2xl
+      text-gray-300
+      text-base
+      md:text-lg
+      leading-relaxed
+      "
             >
               Manage users, monitor ebooks, analyze sales, and control your
               entire Novara platform from one place.
@@ -177,50 +173,53 @@ export default async function AdminHomePage() {
 
             <div
               className="
-              mt-7
-              flex
-              flex-wrap
-              gap-3
-              "
+      mt-7
+      flex
+      flex-wrap
+      gap-3
+      "
             >
               <span
                 className="
-                rounded-xl
-                bg-white/10
-                border
-                border-white/20
-                px-4
-                py-2
-                text-sm
-                "
+        rounded-xl
+        bg-white/10
+        border
+        border-white/10
+        px-4
+        py-2
+        text-sm
+        text-gray-200
+        "
               >
                 👥 User Management
               </span>
 
               <span
                 className="
-                rounded-xl
-                bg-white/10
-                border
-                border-white/20
-                px-4
-                py-2
-                text-sm
-                "
+        rounded-xl
+        bg-white/10
+        border
+        border-white/10
+        px-4
+        py-2
+        text-sm
+        text-gray-200
+        "
               >
                 📚 Ebook Analytics
               </span>
 
               <span
                 className="
-                rounded-xl
-                bg-white/10
-                border
-                border-white/20
-                px-4
-                py-2
-                text-sm
-                "
+        rounded-xl
+        bg-white/10
+        border
+        border-white/10
+        px-4
+        py-2
+        text-sm
+        text-gray-200
+        "
               >
                 💰 Revenue Tracking
               </span>

@@ -19,7 +19,7 @@ const WritersManageBooks = async () => {
     books?.filter((book) => book.status === "unpublish").length || 0;
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-4 lg:p-6 space-y-8">
       <div>
         {totalBooks === 0 && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -232,7 +232,7 @@ const WritersManageBooks = async () => {
             </div>
 
             {/* PART 2: TABLE */}
-            <div className="rounded-2xl border p-5 mt-6">
+            <div className="rounded-2xl border p-2 md:p-4 lg:p-5 mt-6">
               <div className="mb-5">
                 <h2 className="text-xl font-semibold">Your Ebook List</h2>
                 <p className="text-sm text-gray-500">

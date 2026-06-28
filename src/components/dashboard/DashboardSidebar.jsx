@@ -104,7 +104,6 @@ export async function DashboardSidebar() {
   min-h-screen
   hidden
   md:flex
-  w-20
   md:w-48
   lg:w-64
   flex-col
@@ -195,7 +194,7 @@ export async function DashboardSidebar() {
       </aside>
 
       {/* Mobile Sidebar */}
-      <MobileSidebar navItems={navItems} user={user} role={role} />
+      {/* <MobileSidebar navItems={navItems} user={user} role={role} /> */}
     </>
   );
 }

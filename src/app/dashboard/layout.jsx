@@ -13,7 +13,6 @@ const DashBoardLayout = async ({ children }) => {
   sticky
   top-0
   h-screen
-  w-20
   md:w-48
   lg:w-64
   border-r

@@ -6,32 +6,36 @@ export default async function ManageAllEbooksPage() {
   // console.log(ebooks);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 p-4 md:p-6">
       {/* HEADER */}
+
+      {/* HEADER */}
+
       <div
         className="
   relative
   overflow-hidden
   rounded-3xl
   bg-gradient-to-br
-  from-indigo-700
-  via-purple-700
-  to-pink-600
+  from-slate-950
+  via-slate-900
+  to-blue-900
   p-8
   text-white
   shadow-xl
   "
       >
-        {/* Background blur shapes */}
+        {/* Glow */}
+
         <div
           className="
     absolute
-    -top-10
-    -right-10
-    w-40
-    h-40
+    -top-20
+    -right-20
+    w-72
+    h-72
     rounded-full
-    bg-white/20
+    bg-blue-500/20
     blur-3xl
     "
         />
@@ -39,17 +43,18 @@ export default async function ManageAllEbooksPage() {
         <div
           className="
     absolute
-    bottom-0
-    left-20
-    w-32
-    h-32
+    -bottom-20
+    -left-20
+    w-72
+    h-72
     rounded-full
-    bg-pink-300/20
-    blur-2xl
+    bg-cyan-400/10
+    blur-3xl
     "
         />
 
         {/* Content */}
+
         <div className="relative z-10">
           <div className="flex items-center gap-4">
             <div
@@ -57,8 +62,10 @@ export default async function ManageAllEbooksPage() {
         w-14
         h-14
         rounded-2xl
-        bg-white/20
-        backdrop-blur
+        bg-white/10
+        border
+        border-white/20
+        backdrop-blur-md
         flex
         items-center
         justify-center
@@ -84,7 +91,7 @@ export default async function ManageAllEbooksPage() {
               <p
                 className="
           mt-2
-          text-white/80
+          text-gray-300
           text-sm
           md:text-base
           "
@@ -94,7 +101,6 @@ export default async function ManageAllEbooksPage() {
             </div>
           </div>
 
-          {/* Info badge */}
           <div
             className="
       mt-6
@@ -102,12 +108,14 @@ export default async function ManageAllEbooksPage() {
       items-center
       gap-2
       rounded-full
-      bg-white/15
-      backdrop-blur
+      bg-white/10
+      border
+      border-white/20
+      backdrop-blur-md
       px-4
       py-2
       text-sm
-      shadow
+      text-gray-200
       "
           >
             ✅ Publish approved ebooks & manage visibility
