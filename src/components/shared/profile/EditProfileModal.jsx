@@ -4,6 +4,7 @@ import Image from "next/image";
 import User from "@/image/user.png";
 import { useState } from "react";
 import { updateProfile } from "@/lib/actions/profile";
+import { authClient } from "@/lib/auth-client";
 
 export default function EditProfileModal({ user }) {
   const id = user?.id;
@@ -18,6 +19,12 @@ export default function EditProfileModal({ user }) {
 
   const handleUpdate = async () => {
     const res = await updateProfile(id, form, "PATCH");
+
+    await authClient.getSession({
+      query: {
+        disableCookieCache: true,
+      },
+    });
 
     if (res.success) {
       window.location.reload();

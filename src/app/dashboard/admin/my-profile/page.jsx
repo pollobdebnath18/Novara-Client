@@ -9,6 +9,7 @@ import EditProfileModal from "@/components/shared/profile/EditProfileModal";
 const MyProfilePage = async () => {
 
   const user = await getUserSession();
+  console.log(user)
 
   if (!user) {
     return (

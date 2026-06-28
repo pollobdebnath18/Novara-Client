@@ -114,7 +114,7 @@ export async function DashboardSidebar() {
         {/* profile 
         
         */}
-        <div className="flex items-center gap-3 p-2.5 border-b">
+        <div className="flex items-center gap-3 p-1.5 border-b">
           {/* LOGO */}
           <div
             className="
