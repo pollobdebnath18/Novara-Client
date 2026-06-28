@@ -166,7 +166,6 @@ Used for:
 - Tailwind CSS
 - Hero UI
 - Framer Motion
-- Lucide React
 
 
 ## Backend
